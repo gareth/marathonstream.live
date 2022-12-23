@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_224512) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_224622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "twitch_channels", force: :cascade do |t|
+    t.string "twitch_id"
+    t.string "twitch_username"
+    t.string "twitch_display_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["twitch_id"], name: "index_twitch_channels_on_twitch_id", unique: true
+    t.index ["twitch_username"], name: "index_twitch_channels_on_twitch_username", unique: true
+  end
 
 end
