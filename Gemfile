@@ -73,6 +73,9 @@ group :development do
 
   # Documentation server
   gem "yard"
+
+  # Enforce steps at commit time e.g. rubocop validation
+  gem "overcommit"
 end
 
 group :test do
