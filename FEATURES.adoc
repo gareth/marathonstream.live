@@ -1,0 +1,69 @@
+= Features
+
+* Twitch login
+** Access level tracking (Broadcaster, Moderator, Viewer)
+** Visibility/revocability of permissions
+
+* Stream management
+** Tracks start time
+** Displays time remaining
+
+* Donation tracking
+** Automatic integration with donation sites
+*** Tiltify.com
+*** Justgiving.com
+*** Wonderful.org
+*** Twitch charity thing
+
+** Overlay
+*** OBS-compatible display
+*** Ticker
+**** Donation charity (if multiple)
+**** Donation amount
+**** Donation donor name
+**** Donation message
+**** Donation reward
+**** Highlight donation message
+**** Highlight generic message
+*** Goals
+**** Charity active goal
+**** Charity total
+**** Overall total (if multiple)
+**** Goal met animations
+
+* Live dashboard
+** List of all donations
+*** Donation charity, donor, message, reward
+*** Action: hide donation from ticker
+*** Action: highlight message in ticker
+*** Action: mark donation reward as redeemed
+** Force refresh of connected dashboards
+
+* Giveaways
+** Prize management
+*** Prize detail entry
+*** Prize restrictions
+**** Geographical/shipping
+**** Technical/platform/system
+*** Grouping of prizes for bulk giveaways
+** Giveaway management
+*** Assigned prize (for prizes awarded externally)
+*** Raffle
+**** Multiple entry methods
+***** Twitch chat entry
+***** Twitch extension entry
+***** Direct entry on site
+**** Acknowledgment of prize restrictions
+** Winner detail management
+*** Direct delivery
+**** e.g. Steam key management
+*** Contact detail collection
+**** Collect details from viewer through login
+**** Collect details from viewer through extension
+**** Moderator entry for direct contact
+
+* OBS integration
+** Pulls scene(/whatever) information
+** Triggers transitions(/whatever) on donation events
+*** Size-based
+*** Goal-based
