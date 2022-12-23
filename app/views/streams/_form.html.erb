@@ -1,0 +1,32 @@
+<%= form_with(model: stream) do |form| %>
+  <% if stream.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(stream.errors.count, "error") %> prohibited this stream from being saved:</h2>
+
+      <ul>
+        <% stream.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :twitch_channel_id, style: "display: block" %>
+    <%= form.text_field :twitch_channel_id %>
+  </div>
+
+  <div>
+    <%= form.label :starts_at, style: "display: block" %>
+    <%= form.datetime_field :starts_at %>
+  </div>
+
+  <div>
+    <%= form.label :initial_duration, style: "display: block" %>
+    <%= form.number_field :initial_duration %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,3 @@
-
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
@@ -61,16 +60,21 @@ Style/HashTransformKeys:
 Style/HashTransformValues:
   Enabled: true
 
+Style/NumericLiterals:
+  Exclude:
+    # Rails separates the schema timestamp with underscores like 2022_12_23_225040
+    - db/schema.rb
+
 Style/PercentLiteralDelimiters:
   # Enforce Ruby style guide percent-delimiters
   # Redundant with Rubocop 0.48.1
   PreferredDelimiters:
     default: ()
-    '%i': '[]'
-    '%I': '[]'
-    '%r': '{}'
-    '%w': '[]'
-    '%W': '[]'
+    "%i": "[]"
+    "%I": "[]"
+    "%r": "{}"
+    "%w": "[]"
+    "%W": "[]"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
