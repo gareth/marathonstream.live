@@ -2,7 +2,7 @@ require "test_helper"
 
 class StreamsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @stream = streams(:one)
+    @stream = create(:stream)
   end
 
   test "should get index" do

@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class StreamsTest < ApplicationSystemTestCase
   setup do
-    @stream = streams(:one)
+    @stream = create(:stream)
   end
 
   test "visiting the index" do
