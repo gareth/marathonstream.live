@@ -1,7 +1,12 @@
-Rails.application.routes.draw do
-  resources :streams
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+class ChannelConstraint
+  def matches?(request)
+    request.subdomain.present?
+  end
+end
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+Rails.application.routes.draw do
+  constraints(ChannelConstraint.new) do
+    root to: "streams#index"
+    resources :streams
+  end
 end

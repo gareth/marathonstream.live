@@ -1,9 +1,11 @@
 class StreamsController < ApplicationController
+  include Channelable
+
   before_action :set_stream, only: %i[show edit update destroy]
 
   # GET /streams or /streams.json
   def index
-    @streams = Stream.all
+    @streams = twitch_channel.streams
   end
 
   # GET /streams/1 or /streams/1.json
