@@ -7,6 +7,8 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "minitest/rails"
 
+Dir[Rails.root.join("test", "support", "**", "*.rb")].sort.each { |f| require f }
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -16,3 +18,5 @@ end
 
 # Enable FactoryBot helpers in all tests
 MiniTest::Test.include FactoryBot::Syntax::Methods
+
+ActionDispatch::IntegrationTest.include RoutesTestHelper
