@@ -1,1 +1,25 @@
 // Entry point for your Sass build
+
+body {
+  font-family: sans-serif;
+
+  display: flex;
+  flex-flow: column nowrap;
+
+  align-items: center;
+
+  margin: 0; padding: 0;
+}
+
+main {
+  width: 80em;
+  max-width: 100%;
+}
+
+nav {
+  background-color: #bbb;
+
+  align-self: stretch;
+  text-align: center;
+  padding: 0.5em 0;
+}
