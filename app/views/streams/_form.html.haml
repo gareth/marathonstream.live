@@ -1,0 +1,17 @@
+= form_with(model: stream) do |form|
+  - if stream.errors.any?
+    %div{style: "color: red"}
+      %h2
+        = pluralize(stream.errors.count, "error")
+        prohibited this stream from being saved:
+      %ul
+        - stream.errors.each do |error|
+          %li= error.full_message
+  %div
+    = form.label :starts_at, style: "display: block"
+    = form.datetime_field :starts_at
+  %div
+    = form.label :initial_duration, style: "display: block"
+    = form.number_field :initial_duration
+  %div
+    = form.submit

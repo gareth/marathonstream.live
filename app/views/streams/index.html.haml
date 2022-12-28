@@ -1,0 +1,8 @@
+%p{style: "color: green"}= notice
+%h1 Streams
+#streams
+  - @streams.each do |stream|
+    = render stream
+    %p
+      = link_to "Show this stream", stream
+= link_to "New stream", new_stream_path
