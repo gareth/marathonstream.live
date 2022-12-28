@@ -13,13 +13,27 @@ module Channelable
 
   extend ActiveSupport::Concern
 
-  def twitch_channel
-    return unless request.subdomain.present?
+  def self.subdomain(request)
+    request.subdomain.presence || request.env[DevelopmentSubdomain::ENV_KEY]
+  end
 
-    target_channel = request.subdomain
+  included do
+    layout "channelable"
+
+    helper_method :twitch_channel
+  end
+
+  def twitch_channel
+    return unless subdomain.present?
+
+    target_channel = subdomain
 
     Twitch::Channel.find_by!(twitch_username: target_channel)
   rescue ActiveRecord::RecordNotFound
     raise NoChannelError, "Channel not found: `#{target_channel}`"
+  end
+
+  def subdomain
+    Channelable.subdomain(request)
   end
 end

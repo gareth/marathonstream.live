@@ -1,6 +1,7 @@
 class ChannelConstraint
   def matches?(request)
-    request.subdomain.present? && request.subdomain != "www"
+    subdomain = Channelable.subdomain(request)
+    subdomain.present? && subdomain != "www"
   end
 end
 

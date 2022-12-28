@@ -13,7 +13,7 @@ class StreamsController < ApplicationController
 
   # GET /streams/new
   def new
-    @stream = Stream.new
+    @stream = twitch_channel.streams.build
   end
 
   # GET /streams/1/edit
@@ -21,7 +21,7 @@ class StreamsController < ApplicationController
 
   # POST /streams or /streams.json
   def create
-    @stream = Stream.new(stream_params)
+    @stream = twitch_channel.streams.build(stream_params)
 
     respond_to do |format|
       if @stream.save
@@ -61,11 +61,11 @@ class StreamsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stream
-    @stream = Stream.find(params[:id])
+    @stream = twitch_channel.streams.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def stream_params
-    params.require(:stream).permit(:starts_at, :initial_duration).merge(twitch_channel: twitch_channel)
+    params.require(:stream).permit(:starts_at, :initial_duration)
   end
 end
