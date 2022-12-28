@@ -18,7 +18,6 @@ describe "Stream management", :system do
 
     fill_in "Starts at", with: new_stream_params.starts_at
     fill_in "Initial duration", with: new_stream_params.initial_duration
-    fill_in "Twitch channel", with: new_stream_params.twitch_channel_id
     click_on "Create Stream"
 
     assert_text "Stream was successfully created"
@@ -31,7 +30,6 @@ describe "Stream management", :system do
 
     fill_in "Starts at", with: stream.starts_at
     fill_in "Initial duration", with: stream.initial_duration
-    fill_in "Twitch channel", with: stream.twitch_channel_id
     click_on "Update Stream"
 
     assert_text "Stream was successfully updated"

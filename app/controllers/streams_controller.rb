@@ -66,6 +66,6 @@ class StreamsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def stream_params
-    params.require(:stream).permit(:twitch_channel_id, :starts_at, :initial_duration)
+    params.require(:stream).permit(:starts_at, :initial_duration).merge(twitch_channel: twitch_channel)
   end
 end
