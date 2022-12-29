@@ -22,4 +22,15 @@ nav {
   align-self: stretch;
   text-align: center;
   padding: 0.5em 0;
+
+  display: flex;
+  justify-content: space-around;
+
+  .title {
+    flex-grow: 1;
+  }
+
+  .sudo {
+    flex-grow: 0;
+  }
 }
