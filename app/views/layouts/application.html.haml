@@ -16,6 +16,7 @@
         - if defined? twitch_channel
           = link_to("Home", root_path(_sudo: ""))
         - else
-          = link_to("Helix", root_path(_sudo: "helix"))
+          - channel = Twitch::Channel.first
+          = link_to(channel, root_path(_sudo: channel))
     %main
       = content_for?(:content) ? yield(:content) : yield

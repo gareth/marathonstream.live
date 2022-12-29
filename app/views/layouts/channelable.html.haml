@@ -1,7 +1,6 @@
 - content_for :nav_title do
   = twitch_channel.twitch_display_name
 - content_for :content do
-  %h2 CHANNEL
   = yield
 
 = render template: "layouts/application"
