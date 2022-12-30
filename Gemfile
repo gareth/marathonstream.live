@@ -61,6 +61,9 @@ group :development, :test do
   gem "factory_bot_rails"
 
   gem "dotenv-rails"
+
+  gem "minitest-macos-notification"
+  gem "minitest-reporters"
 end
 
 group :development do
@@ -81,6 +84,9 @@ group :development do
 
   # Enforce steps at commit time e.g. rubocop validation
   gem "overcommit"
+
+  gem "guard"
+  gem "guard-minitest"
 end
 
 group :test do
