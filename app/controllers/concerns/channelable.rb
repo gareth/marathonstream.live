@@ -28,7 +28,7 @@ module Channelable
 
     target_channel = subdomain
 
-    Twitch::Channel.find_by!(twitch_username: target_channel)
+    Twitch::Channel.find_by!(username: target_channel)
   rescue ActiveRecord::RecordNotFound
     raise NoChannelError, "Channel not found: `#{target_channel}`"
   end

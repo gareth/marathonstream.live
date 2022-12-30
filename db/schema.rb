@@ -26,12 +26,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_225040) do
 
   create_table "twitch_channels", force: :cascade do |t|
     t.string "twitch_id"
-    t.string "twitch_username"
-    t.string "twitch_display_name"
+    t.string "username"
+    t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["twitch_id"], name: "index_twitch_channels_on_twitch_id", unique: true
-    t.index ["twitch_username"], name: "index_twitch_channels_on_twitch_username", unique: true
+    t.index ["username"], name: "index_twitch_channels_on_username", unique: true
   end
 
   add_foreign_key "streams", "twitch_channels"

@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 describe "Stream management", :system do
   let(:target_channel) { "helix" } # The only domain that will resolve locally
-  let(:channel) { create(:twitch_channel, twitch_display_name: target_channel) }
+  let(:channel) { create(:twitch_channel, display_name: target_channel) }
   let(:stream) { create(:stream, twitch_channel: channel) }
 
   it "allows listing streams" do

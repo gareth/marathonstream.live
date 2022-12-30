@@ -20,7 +20,7 @@ describe Channelable, :integration do
     create(:twitch_channel)
     @target_channel = create(:twitch_channel)
     create(:twitch_channel)
-    integration_session.host = "#{@target_channel.twitch_username}.marathonstream.test"
+    integration_session.host = "#{@target_channel.username}.marathonstream.test"
   end
 
   it "loads channel information from the subdomain" do
