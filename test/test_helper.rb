@@ -7,19 +7,18 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "minitest/rails"
 
-require "minitest/macos_notification"
 require "minitest/reporters"
+
+Dir[Rails.root.join("test", "support", "**", "*.rb")].each { |f| require f }
 
 Minitest::Reporters.use!(
   [
     Minitest::Reporters::DefaultReporter.new,
-    Minitest::Reporters::MacosNotificationReporter.new
+    TerminalReporter.new
   ],
   ENV,
   Minitest.backtrace_filter
 )
-
-Dir[Rails.root.join("test", "support", "**", "*.rb")].each { |f| require f }
 
 module ActiveSupport
   class TestCase
