@@ -14,21 +14,20 @@ class TerminalReporter < Minitest::Reporters::BaseReporter
   def show_notification
     status = (passed? ? "\u{1F49A} Success" : "\u{1F494} Failed")
     title = "Minitest #{status}"
-    subtitle = "#{total_count} tests, #{failures} failures, #{errors} errors, #{skips} skips in #{total_time.round(4)}s"
-
-    if passed?
-      msg = "%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
-      subtitle = format(msg, total_count:, skips:, total_time:)
-      text = "Congratulations!"
-    else
-      msg = "%<failures>i/%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
-      subtitle = format(msg, failures:, total_count:, skips:, total_time:)
-      text = first_failure
-    end
-
     group = "minitest"
 
-    TerminalNotifier.notify(text, title:, subtitle:, group:)
+    if passed?
+      ## Hiding successful notifications because we have Nanoleaf flashing for that.
+      ## Having these reporters coupled together isn't great, but :shrug:
+      # msg = "%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
+      # subtitle = format(msg, total_count:, skips:, total_time:)
+      # text = "Congratulations!"
+    else
+      msg = "%<failures>i/%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
+      subtitle = format(msg, failures: failures + errors, total_count:, skips:, total_time:)
+      text = first_failure
+      TerminalNotifier.notify(text, title:, subtitle:, group:)
+    end
   end
 
   def first_failure

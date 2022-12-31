@@ -14,7 +14,8 @@ Dir[Rails.root.join("test", "support", "**", "*.rb")].each { |f| require f }
 Minitest::Reporters.use!(
   [
     Minitest::Reporters::DefaultReporter.new,
-    TerminalReporter.new
+    TerminalReporter.new,
+    Nanoleaf::Reporter.new
   ],
   ENV,
   Minitest.backtrace_filter

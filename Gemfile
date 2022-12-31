@@ -64,6 +64,10 @@ group :development, :test do
 
   gem "minitest-macos-notification"
   gem "minitest-reporters"
+
+  # Allows interaction with Nanoleaf panels for test reporting
+  gem "dnssd"
+  gem "httparty"
 end
 
 group :development do
