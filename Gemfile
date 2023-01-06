@@ -54,6 +54,9 @@ gem "bootsnap", require: false
 # Use HAML for templates
 gem "haml-rails"
 
+# Authorization
+gem "pundit"
+
 group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"

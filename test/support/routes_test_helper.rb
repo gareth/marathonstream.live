@@ -1,6 +1,9 @@
-# Ensure you call `reload_routes!` in your test's `teardown`
-# to erase all the routes drawn by your test case.
-
+# Allow (additional) routes to be defined for the duration of a test.
+#
+# This is useful for testing controller concerns because it allows you to:
+# 1. Define a custom controller
+# 2. Mix your concern into it
+# 3. Define routes that your test can use to hit the controller # <- THIS BIT
 module RoutesTestHelper
   extend ActiveSupport::Concern
 
