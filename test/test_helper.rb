@@ -7,13 +7,21 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "minitest/rails"
 
+# Use MiniTest::Reporters to allow for post-test reporting/formatting
 require "minitest/reporters"
 
 Dir[Rails.root.join("test", "support", "**", "*.rb")].each { |f| require f }
 
+primary_reporter = if ENV.fetch("TEST_FORMAT",
+                                "spec") == "plain"
+  Minitest::Reporters::DefaultReporter
+else
+  Minitest::Reporters::SpecReporter
+end
+
 Minitest::Reporters.use!(
   [
-    Minitest::Reporters::DefaultReporter.new,
+    primary_reporter.new,
     TerminalReporter.new,
     Nanoleaf::Reporter.new
   ],
