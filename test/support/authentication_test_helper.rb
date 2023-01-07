@@ -20,6 +20,12 @@ module AuthenticationTestHelper
 
     alias_method :as_a, :as
 
+    def as_anyone(&)
+      %i[viewer moderator broadcaster admin].each do |role|
+        as(role, &)
+      end
+    end
+
     def use_channel(**attributes)
       let(:channel) { create(:twitch_channel, **attributes) }
 

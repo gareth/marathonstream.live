@@ -7,16 +7,12 @@ describe StreamsController do
 
   describe "#index" do
     describe "with no streams" do
-      as_a(:viewer) do
-        it "shows an empty page"
-      end
+      as_anyone do
+        it "renders the page" do
+          get streams_url
 
-      as_a(:moderator) do
-        it "shows an empty page"
-      end
-
-      as_a(:broadcaster) do
-        it "shows the option to create a stream"
+          assert_response :success
+        end
       end
     end
 
@@ -25,16 +21,18 @@ describe StreamsController do
         @stream = create(:stream, twitch_channel: channel)
       end
 
-      it "shows the stream" do
-        get stream_url(@stream)
+      as_anyone do
+        it "renders the page" do
+          get streams_url
 
-        assert_response :success
+          assert_response :success
+        end
       end
     end
   end
 
   describe "#create" do
-    as_a(:broadcaster) do
+    as_a(:broadcaster, :admin) do
       describe "with valid parameters" do
         let(:params) { build(:stream).attributes }
 
@@ -50,10 +48,6 @@ describe StreamsController do
           assert_redirected_to stream_url(Stream.last)
         end
       end
-
-      describe "with invalid parameters" do
-        it "fails"
-      end
     end
   end
 
@@ -63,12 +57,8 @@ describe StreamsController do
     end
 
     describe "#edit" do
-      before do
-        @stream = create(:stream, twitch_channel: channel)
-      end
-
       as_a(:viewer) do
-        it "fails"
+        it "is restricted"
       end
 
       as_a(:moderator, :broadcaster, :admin) do
@@ -93,6 +83,10 @@ describe StreamsController do
     end
 
     describe "#destroy" do
+      as_a(:viewer, :moderator) do
+        it "is restricted"
+      end
+
       as_a(:broadcaster, :admin) do
         it "destroys the stream" do
           assert_difference("Stream.count", -1) do
