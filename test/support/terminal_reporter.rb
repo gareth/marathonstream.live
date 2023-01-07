@@ -31,7 +31,7 @@ class TerminalReporter < Minitest::Reporters::BaseReporter
   end
 
   def first_failure
-    failure = tests.detect { |t| t.failures.any? }
+    failure = tests.detect { |t| !t.skipped? && t.failures.any? }
 
     test_name = failure.name.gsub(/^test_\d+_/, "")
 
