@@ -21,7 +21,13 @@ describe StreamsController do
         @stream = create(:stream, twitch_channel: channel)
       end
 
-      it "shows the stream"
+      as_anyone do
+        it "shows the stream" do
+          get stream_url(@stream)
+
+          assert_response :success
+        end
+      end
     end
   end
 
@@ -69,11 +75,29 @@ describe StreamsController do
     end
 
     describe "#update" do
-      as_a(:broadcaster) do
-        it "updates the stream" do
-          patch stream_url(@stream),
-                params: { stream: { initial_duration: @stream.initial_duration, starts_at: @stream.starts_at,
-                                    twitch_channel_id: @stream.twitch_channel_id } }
+      as_a(:viewer) do
+        it "doesn't update the Stream" do
+          assert_no_changes -> { @stream.reload.updated_at } do
+            patch stream_url(@stream), params: { stream: { initial_duration: @stream.initial_duration + 1 } }
+          end
+        end
+
+        it "is restricted" do
+          patch stream_url(@stream)
+
+          assert_response :forbidden
+        end
+      end
+
+      as_a(:moderator, :broadcaster, :admin) do
+        it "updates the Stream" do
+          assert_changes -> { @stream.reload.updated_at } do
+            patch stream_url(@stream), params: { stream: { initial_duration: @stream.initial_duration + 1 } }
+          end
+        end
+
+        it "redirects to the Stream URL" do
+          patch stream_url(@stream), params: { stream: { initial_duration: @stream.initial_duration + 1 } }
 
           assert_redirected_to stream_url(@stream)
         end
@@ -82,7 +106,17 @@ describe StreamsController do
 
     describe "#destroy" do
       as_a(:viewer, :moderator) do
-        it "is restricted"
+        it "doesn't delete the Stream" do
+          assert_no_changes("Stream.count") do
+            delete stream_url(@stream)
+          end
+        end
+
+        it "is restricted" do
+          delete stream_url(@stream)
+
+          assert_response :forbidden
+        end
       end
 
       as_a(:broadcaster, :admin) do

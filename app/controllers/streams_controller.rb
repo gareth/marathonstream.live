@@ -2,10 +2,12 @@ class StreamsController < ApplicationController
   include Channelable
 
   before_action :set_stream, only: %i[show edit update destroy]
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   # GET /streams or /streams.json
   def index
-    @streams = twitch_channel.streams
+    @streams = policy_scope twitch_channel.streams
   end
 
   # GET /streams/1 or /streams/1.json
@@ -13,17 +15,15 @@ class StreamsController < ApplicationController
 
   # GET /streams/new
   def new
-    @stream = twitch_channel.streams.build
+    @stream = authorize twitch_channel.streams.build
   end
 
   # GET /streams/1/edit
-  def edit
-    authorize @stream
-  end
+  def edit; end
 
   # POST /streams or /streams.json
   def create
-    @stream = twitch_channel.streams.build(stream_params)
+    @stream = authorize twitch_channel.streams.build(stream_params)
 
     respond_to do |format|
       if @stream.save
@@ -63,7 +63,7 @@ class StreamsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stream
-    @stream = twitch_channel.streams.find(params[:id])
+    @stream = authorize twitch_channel.streams.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

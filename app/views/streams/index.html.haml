@@ -5,4 +5,5 @@
     = render stream
     %p
       = link_to "Show this stream", stream
-= link_to "New stream", new_stream_path
+- if policy(Stream).new?
+  = link_to "New stream", new_stream_path
