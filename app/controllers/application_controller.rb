@@ -3,7 +3,16 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  rescue_from(Pundit::NotAuthorizedError) do |e|
+    error_klass = e.class.name.demodulize
+    error_type = error_klass
+    error = format("%<error>s (%<type>s)", error: e, type: error_type)
+
+    render plain: "Forbidden: #{error}", status: :forbidden
+  end
+
   def current_user
-    User.new(role: :broadcaster)
+    role = session.fetch(:role, :anonymous).to_sym
+    User.new(role:)
   end
 end

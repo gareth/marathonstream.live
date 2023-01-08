@@ -1,6 +1,6 @@
 class StreamPolicy < ApplicationPolicy
   def index?
-    user.role != :viewer
+    true
   end
 
   def show?
@@ -12,7 +12,7 @@ class StreamPolicy < ApplicationPolicy
   end
 
   def update?
-    %i[broadcaster admin].include? user.role
+    %i[broadcaster admin moderator].include? user.role
   end
 
   def destroy?

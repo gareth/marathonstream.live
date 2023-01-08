@@ -5,7 +5,7 @@ class StreamsController < ApplicationController
 
   # GET /streams or /streams.json
   def index
-    @streams = authorize twitch_channel.streams
+    @streams = twitch_channel.streams
   end
 
   # GET /streams/1 or /streams/1.json
@@ -17,7 +17,9 @@ class StreamsController < ApplicationController
   end
 
   # GET /streams/1/edit
-  def edit; end
+  def edit
+    authorize @stream
+  end
 
   # POST /streams or /streams.json
   def create

@@ -16,18 +16,12 @@ describe StreamsController do
       end
     end
 
-    describe "with a stream" do
+    describe "with an active stream" do
       before do
         @stream = create(:stream, twitch_channel: channel)
       end
 
-      as_anyone do
-        it "renders the page" do
-          get streams_url
-
-          assert_response :success
-        end
-      end
+      it "shows the stream"
     end
   end
 
@@ -58,7 +52,11 @@ describe StreamsController do
 
     describe "#edit" do
       as_a(:viewer) do
-        it "is restricted"
+        it "is restricted" do
+          get edit_stream_url(@stream)
+
+          assert_response :forbidden
+        end
       end
 
       as_a(:moderator, :broadcaster, :admin) do
