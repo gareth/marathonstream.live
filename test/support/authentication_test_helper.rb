@@ -29,7 +29,7 @@ module AuthenticationTestHelper
       roles.each do |role|
         describe "as a #{role}" do
           # Set up the user (lazily)
-          let(:current_user) { create(:user, role, **attributes) }
+          let(:current_user) { create(:user_session, role, **attributes) }
 
           # Before each test, simulate logging the user in
           before do
@@ -46,10 +46,7 @@ module AuthenticationTestHelper
     alias_method :as_a, :as
 
     def as_anyone(&)
-      # TODO: Extract the list of "all" user roles, probably to a User enum
-      %i[viewer moderator broadcaster admin].each do |role|
-        as(role, &)
-      end
+      as(*Role.values, &)
     end
 
     # In tests relating to a specific channel, we have to make requests to a

@@ -1,11 +1,11 @@
 FactoryBot.define do
-  factory :user do
+  factory :user_session do
     skip_create
-    initialize_with { User.new(**attributes) }
+    initialize_with { UserSession.new(**attributes) }
 
     role { :viewer }
 
-    %i[viewer moderator broadcaster admin].each do |r|
+    Role.each_value do |r|
       trait r do
         role { r }
       end

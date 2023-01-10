@@ -13,6 +13,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     role = session.fetch(:role, :anonymous).to_sym
-    User.new(role:)
+    UserSession.new(role:)
   end
 end

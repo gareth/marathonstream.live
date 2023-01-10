@@ -57,6 +57,8 @@ gem "haml-rails"
 # Authorization
 gem "pundit"
 
+gem "ruby-enum"
+
 group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
