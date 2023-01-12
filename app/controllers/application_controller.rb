@@ -12,7 +12,18 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    role = session.fetch(:role, :anonymous).to_sym
-    UserSession.new(role:)
+    case session["identity.provider"]
+    when "twitch"
+      data = session["identity.data"]
+      # TODO: This check should probably live in Channelable somehow?
+      if defined?(subdomain) && subdomain == data["login"]
+        UserSession.new(role: Role.broadcaster)
+      else
+        UserSession.new(role: Role.viewer)
+      end
+    else
+      # TODO: Remove the test hook
+      UserSession.new(role: session.fetch("test.role", Role.anonymous).to_sym)
+    end
   end
 end

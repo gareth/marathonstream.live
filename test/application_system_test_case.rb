@@ -1,5 +1,7 @@
 require "test_helper"
 
+OmniAuth.config.test_mode = true
+
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :headless_chrome, screen_size: [1200, 900]
 

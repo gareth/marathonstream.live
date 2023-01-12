@@ -9,14 +9,23 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body
-    %nav
-      .title
-        = content_for :nav_title
-      .sudo
-        - if defined? twitch_channel
-          = link_to("Home", root_path(_sudo: ""))
-        - else
-          - channel = Twitch::Channel.first
-          = link_to(channel, root_path(_sudo: channel))
+    %header
+      %nav
+        .sudo
+          - if defined? twitch_channel
+            = link_to("Home", root_path(_sudo: ""))
+          - else
+            - Twitch::Channel.find_each do |channel|
+              = link_to(channel, root_path(_sudo: channel))
+        .title
+          = content_for :nav_title
+          = current_user
+        .login
+          - if current_user.authenticated?
+            = button_to "Logout", "/session", method: :delete
+          - else
+            = link_to "Login", "/session"
     %main
+      .session
+        = session.to_h
       = content_for?(:content) ? yield(:content) : yield

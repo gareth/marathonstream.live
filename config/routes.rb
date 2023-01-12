@@ -12,6 +12,9 @@ class NoChannelConstraint
 end
 
 Rails.application.routes.draw do
+  match "/auth/:provider/callback", to: "sessions#create", via: %i[get post]
+  resource :session
+
   constraints(ChannelConstraint.new) do
     root to: "streams#index", as: :channel_root
 

@@ -54,7 +54,9 @@ gem "bootsnap", require: false
 # Use HAML for templates
 gem "haml-rails"
 
-# Authorization
+# Authentication and authorization
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-twitch"
 gem "pundit"
 
 gem "ruby-enum"
@@ -73,6 +75,9 @@ group :development, :test do
   # Allows interaction with Nanoleaf panels for test reporting
   gem "dnssd"
   gem "httparty"
+
+  # Allow development/test mode to trigger screenshots/emails to open locally
+  gem "launchy"
 end
 
 group :development do

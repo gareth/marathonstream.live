@@ -11,15 +11,21 @@ body {
   margin: 0; padding: 0;
 }
 
-main {
+main, nav {
   width: 80em;
   max-width: 100%;
 }
 
-nav {
+header {
   background-color: #bbb;
-
   align-self: stretch;
+
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+
   text-align: center;
   padding: 0.5em;
 

@@ -9,4 +9,12 @@ class UserSession
     super
     @role ||= Role.viewer
   end
+
+  def authenticated?
+    role != Role.anonymous
+  end
+
+  def to_s
+    role.inspect
+  end
 end

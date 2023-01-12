@@ -11,7 +11,7 @@ require_relative "test_controller"
 # are the values that the genuine login sets when it's implemented.
 class TestSessionsController < TestController
   def create
-    session[:role] = params.fetch(:role).to_sym
+    session["test.role"] = params.fetch(:role)
   end
 end
 
@@ -25,16 +25,13 @@ module AuthenticationTestHelper
     # 1. Create a `describe` block for each role listed
     # 2. Create a relevant User in the `current_user` variable
     # 3. Sign that user in at the beginning of the test
-    def as(*roles, **attributes, &)
+    def as(*roles, &)
       roles.each do |role|
         describe "as a #{role}" do
-          # Set up the user (lazily)
-          let(:current_user) { create(:user_session, role, **attributes) }
-
           # Before each test, simulate logging the user in
           before do
             draw_test_routes { resource :test_session }
-            post test_session_url(role: current_user.role)
+            post test_session_url(role:)
           end
 
           # Process the test definitions inside this authenticated block
