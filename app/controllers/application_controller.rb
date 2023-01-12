@@ -21,6 +21,9 @@ class ApplicationController < ActionController::Base
       else
         UserSession.new(role: Role.viewer)
       end
+    when "developer"
+      role = session.dig("identity.data", "role").to_sym
+      UserSession.new(role:)
     else
       # TODO: Remove the test hook
       UserSession.new(role: session.fetch("test.role", Role.anonymous).to_sym)

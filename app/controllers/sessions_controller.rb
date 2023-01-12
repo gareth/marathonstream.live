@@ -25,6 +25,10 @@ class SessionsController < ApplicationController
         name: user_info.dig("info", "name"),
         credentials: user_info.fetch("credentials")
       }
+    when "developer"
+      session["identity.data"] = {
+        role: user_info.dig("info", "role")
+      }
     else
       raise format("Unknown provider: %p", provider)
     end
