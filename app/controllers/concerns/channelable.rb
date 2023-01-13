@@ -36,4 +36,19 @@ module Channelable
   def subdomain
     Channelable.subdomain(request)
   end
+
+  def current_user
+    case session["identity.provider"]
+    when "twitch"
+      data = session["identity.data"]
+      # TODO: Moderator lookup
+      if subdomain == data["login"]
+        UserSession.new(role: Role.broadcaster)
+      else
+        UserSession.new(role: Role.viewer)
+      end
+    else
+      super
+    end
+  end
 end
