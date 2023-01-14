@@ -29,5 +29,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  alias pundit_user current_session
+  def pundit_user
+    current_session
+  end
 end
