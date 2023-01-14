@@ -12,17 +12,19 @@
     %header
       %nav
         .sudo
-          - if defined? twitch_channel
-            = link_to("Home", root_path(_sudo: ""))
-          - else
-            - Twitch::Channel.find_each do |channel|
-              = link_to(channel, root_path(_sudo: channel))
+          = link_to("Home", root_path(_sudo: ""))
+          - Twitch::Channel.find_each do |channel|
+            = link_to(channel, root_path(_sudo: channel))
         .title
           = content_for :nav_title
           = current_session
         .login
           - if current_session.authenticated?
-            = button_to "Logout", "/session", method: :delete
+            = button_to "/session", method: :delete do
+              = "Logout"
+              - if current_user
+                = surround "(", ")" do
+                  = current_user
           - else
             = link_to "Login", "/session"
     %main
