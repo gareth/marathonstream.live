@@ -19,9 +19,9 @@
               = link_to(channel, root_path(_sudo: channel))
         .title
           = content_for :nav_title
-          = current_user
+          = current_session
         .login
-          - if current_user.authenticated?
+          - if current_session.authenticated?
             = button_to "Logout", "/session", method: :delete
           - else
             = link_to "Login", "/session"

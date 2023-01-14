@@ -23,8 +23,7 @@ module AuthenticationTestHelper
     #
     # This will:
     # 1. Create a `describe` block for each role listed
-    # 2. Create a relevant User in the `current_user` variable
-    # 3. Sign that user in at the beginning of the test
+    # 2. Sign that user in at the beginning of the test
     def as(*roles, &)
       roles.each do |role|
         describe "as a #{role}" do

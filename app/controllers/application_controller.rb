@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-  helper_method :current_user
+  helper_method :current_session, :current_user
 
   rescue_from(Pundit::NotAuthorizedError) do |e|
     error_klass = e.class.name.demodulize
@@ -11,7 +11,11 @@ class ApplicationController < ActionController::Base
     render plain: "Forbidden: #{error}", status: :forbidden
   end
 
-  def current_user
+  private
+
+  def current_user; end
+
+  def current_session
     case session["identity.provider"]
     when "developer"
       role = session.dig("identity.data", "role").to_sym
@@ -24,4 +28,6 @@ class ApplicationController < ActionController::Base
       UserSession.new(role:)
     end
   end
+
+  alias pundit_user current_session
 end

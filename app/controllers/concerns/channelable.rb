@@ -37,7 +37,7 @@ module Channelable
     Channelable.subdomain(request)
   end
 
-  def current_user
+  def current_session
     case session["identity.provider"]
     when "twitch"
       data = session["identity.data"]

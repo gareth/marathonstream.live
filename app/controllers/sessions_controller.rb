@@ -2,9 +2,9 @@ class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
   def show
-    return new unless current_user.authenticated?
+    return new unless current_session.authenticated?
 
-    render json: current_user
+    render json: current_session
   end
 
   def new
