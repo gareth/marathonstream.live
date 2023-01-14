@@ -26,6 +26,4 @@
           - else
             = link_to "Login", "/session"
     %main
-      .session
-        = session.to_h
       = content_for?(:content) ? yield(:content) : yield
