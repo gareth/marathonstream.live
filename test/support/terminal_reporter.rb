@@ -17,11 +17,12 @@ class TerminalReporter < Minitest::Reporters::BaseReporter
     group = "minitest"
 
     if passed?
-      ## Hiding successful notifications because we have Nanoleaf flashing for that.
-      ## Having these reporters coupled together isn't great, but :shrug:
-      # msg = "%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
-      # subtitle = format(msg, total_count:, skips:, total_time:)
-      # text = "Congratulations!"
+      # Hiding successful notifications because we have Nanoleaf flashing for that.
+      # Having these reporters coupled together isn't great, but :shrug:
+      msg = "%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
+      subtitle = format(msg, total_count:, skips:, total_time:)
+      text = "Congratulations!"
+      TerminalNotifier.notify(text, subtitle:, title:, group:)
     else
       msg = "%<failures>i/%<total_count>i tests (%<skips>i skips) in %<total_time>0.3fs"
       subtitle = format(msg, failures: failures + errors, total_count:, skips:, total_time:)
