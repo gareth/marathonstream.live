@@ -16,8 +16,9 @@ Rails.application.routes.draw do
   resource :session
 
   constraints(ChannelConstraint.new) do
-    root to: "streams#index", as: :channel_root
+    root to: "channels#show", as: :channel_root
 
+    resource :channel
     resources :streams
   end
 
