@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_225040) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "streams", force: :cascade do |t|
+  create_table "streams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "twitch_channel_id", null: false
     t.datetime "starts_at"
     t.integer "initial_duration"
