@@ -1,7 +1,9 @@
 require "test_helper"
 
 class StreamTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  it "requires a title" do
+    stream = build(:stream, title: nil)
+
+    refute stream.valid?
+  end
 end

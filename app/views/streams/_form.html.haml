@@ -8,6 +8,9 @@
         - stream.errors.each do |error|
           %li= error.full_message
   %div
+    = form.label :title, style: "display: block"
+    = form.text_field :title
+  %div
     = form.label :starts_at, style: "display: block"
     = form.datetime_field :starts_at
   %div
