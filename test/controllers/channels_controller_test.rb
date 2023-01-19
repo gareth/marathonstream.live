@@ -8,9 +8,19 @@ describe ChannelsController do
 
   use_channel
 
+  describe "with no active stream" do
+    as(:viewer) do
+      it "shows no active stream" do
+        get channel_url
+
+        assert_content "no active stream"
+      end
+    end
+  end
+
   describe "with an active stream" do
     before do
-      create(:stream, :active, twitch_channel: channel)
+      create(:stream, :active, twitch_channel: channel, title: "Active Stream")
     end
 
     as(:viewer) do
@@ -20,15 +30,12 @@ describe ChannelsController do
         assert_response :success
       end
 
-      it "displays the current channel" do
+      it "displays the active stream" do
         get channel_url
 
-        within "main" do
-          assert_content channel.to_s
-        end
+        assert_no_content "no active stream"
+        assert_content "Active Stream"
       end
-
-      it "displays the active stream"
     end
   end
 end
