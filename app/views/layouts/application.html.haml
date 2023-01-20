@@ -2,7 +2,9 @@
 %html
   %head
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title MarathonStream
+    %title
+      MarathonStream
+      = content_for?(:nav_title) ? " - #{yield(:nav_title)}" : ""
     %meta{content: "width=device-width,initial-scale=1", name: "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
@@ -10,7 +12,7 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body
     %header
-      %nav
+      %nav.page-header
         .sudo
           = link_to("Home", root_path(_sudo: ""))
           - Twitch::Channel.find_each do |channel|
@@ -27,5 +29,7 @@
                   = current_user
           - else
             = link_to "Login", "/session"
+    - if content_for?(:before_content)
+      = yield(:before_content)
     %main
       = content_for?(:content) ? yield(:content) : yield

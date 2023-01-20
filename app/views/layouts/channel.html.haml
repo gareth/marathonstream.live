@@ -1,0 +1,6 @@
+- content_for :before_content do
+  - if broadcaster_navigation.present?
+    %nav.broadcaster-admin
+      = render partial: "shared/broadcaster_link", collection: broadcaster_navigation.links, spacer_template: "shared/broadcaster_spacer"
+
+= render template: "layouts/channelable"

@@ -1,6 +1,8 @@
 class ChannelsController < ApplicationController
   include Channelable
 
+  layout "channel"
+
   rescue_from Channelable::NoChannelError do |exception|
     # TODO: Remove this handler when account creation is sorted
     if request.local?
