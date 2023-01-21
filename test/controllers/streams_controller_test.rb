@@ -7,7 +7,15 @@ describe StreamsController do
 
   describe "#index" do
     describe "with no streams" do
-      as_anyone do
+      as(:anonymous) do
+        it "is restricted" do
+          get streams_url
+
+          assert_response :forbidden
+        end
+      end
+
+      as(:moderator, :broadcaster, :admin) do
         it "renders the page" do
           get streams_url
 

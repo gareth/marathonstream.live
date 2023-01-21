@@ -1,6 +1,6 @@
 class StreamPolicy < ApplicationPolicy
   def index?
-    %i[broadcaster admin].include? user.role
+    %i[moderator broadcaster admin].include? user.role
   end
 
   def show?

@@ -3,6 +3,7 @@
 %div
   - if policy(@stream).edit?
     = link_to "Edit this stream", edit_stream_path(@stream)
-  = link_to "Back to streams", streams_path
+  - if policy(@stream).index?
+    = link_to "Back to streams", streams_path
   - if policy(@stream).destroy?
     = button_to "Destroy this stream", @stream, method: :delete
