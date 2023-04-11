@@ -32,6 +32,28 @@ describe ChannelsController do
         end
       end
     end
+
+    describe "#create" do
+      as(:broadcaster, :admin) do
+        it "creates the channel" do
+          assert_changes(-> { Twitch::Channel.count }) do
+            post channel_url
+          end
+
+          assert_redirected_to root_url
+        end
+      end
+
+      as(:moderator, :viewer) do
+        it "is restricted" do
+          assert_no_changes(-> { Twitch::Channel.count }) do
+            post channel_url
+          end
+
+          assert_response :forbidden
+        end
+      end
+    end
   end
 
   describe "for an existing channel" do

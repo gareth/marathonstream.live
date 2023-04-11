@@ -7,9 +7,9 @@ class ChannelsController < ApplicationController
   layout "channel"
 
   rescue_from Channelable::NoChannelError do |_exception|
-    channel = Twitch::Channel.new(username: subdomain)
+    @channel = Twitch::Channel.new(username: subdomain)
 
-    if policy(channel).create?
+    if policy(@channel).create?
       render :new, layout: "application"
     else
       render :missing, status: 404, layout: "application"
@@ -22,5 +22,14 @@ class ChannelsController < ApplicationController
     return unless @stream
 
     render "streams/show"
+  end
+
+  def create
+    channel = Twitch::Channel.new(username: subdomain, display_name: subdomain)
+
+    authorize(channel)
+
+    channel.save
+    redirect_to root_url
   end
 end
