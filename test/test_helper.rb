@@ -31,8 +31,9 @@ Minitest::Reporters.use!(
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors)
+    # Run tests in parallel with specified workers, unless we're running in spec mode
+    # This is only because parallelization messes up the spec output
+    parallelize(workers: :number_of_processors) unless ENV.fetch("TEST_FORMAT", "spec") == "spec"
   end
 end
 
