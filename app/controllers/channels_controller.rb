@@ -1,21 +1,23 @@
 class ChannelsController < ApplicationController
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, only: :index
+
   include Channelable
 
   layout "channel"
 
-  rescue_from Channelable::NoChannelError do |exception|
-    # TODO: Remove this handler when account creation is sorted
-    if request.local?
-      Twitch::Channel.create(twitch_id: rand(1_000_000), username: subdomain, display_name: subdomain)
+  rescue_from Channelable::NoChannelError do |_exception|
+    channel = Twitch::Channel.new(username: subdomain)
 
-      redirect_to root_url
+    if policy(channel).create?
+      render :new, layout: "application"
     else
-      rescue_action_without_handler(exception)
+      render :missing, status: 404, layout: "application"
     end
   end
 
   def show
-    @stream = twitch_channel.streams.active.first
+    @stream = authorize(twitch_channel).streams.active.first
 
     return unless @stream
 
