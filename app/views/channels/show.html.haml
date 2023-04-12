@@ -1,3 +1,6 @@
 %h1 Channel #{twitch_channel}!
 
+- if policy(twitch_channel).destroy?
+  = button_to "Unlink channel", channel_url, method: :delete
+
 %p no active stream

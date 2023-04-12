@@ -32,4 +32,10 @@ class ChannelsController < ApplicationController
     channel.save
     redirect_to root_url
   end
+
+  def destroy
+    authorize(twitch_channel).destroy
+
+    redirect_to root_url
+  end
 end

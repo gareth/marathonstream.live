@@ -107,5 +107,27 @@ describe ChannelsController do
         end
       end
     end
+
+    describe "#destroy" do
+      as(:broadcaster, :admin) do
+        it "clears the channel" do
+          assert_changes(-> { Twitch::Channel.count }, -1) do
+            delete channel_url
+          end
+
+          assert_redirected_to root_url
+        end
+      end
+
+      as(:moderator, :viewer) do
+        it "is restricted" do
+          assert_no_changes(-> { Twitch::Channel.count }) do
+            delete channel_url
+          end
+
+          assert_response :forbidden
+        end
+      end
+    end
   end
 end

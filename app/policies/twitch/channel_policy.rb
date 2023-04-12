@@ -4,6 +4,10 @@ module Twitch
       %i[broadcaster admin].include? user.role
     end
 
+    def destroy?
+      %i[broadcaster admin].include? user.role
+    end
+
     def show?
       true
     end
