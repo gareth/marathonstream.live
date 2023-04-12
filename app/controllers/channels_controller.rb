@@ -25,6 +25,11 @@ class ChannelsController < ApplicationController
   end
 
   def create
+    if twitch_channel?
+      authorize(twitch_channel)
+      redirect_to root_url and return
+    end
+
     channel = Twitch::Channel.new(username: subdomain, display_name: subdomain)
 
     authorize(channel)

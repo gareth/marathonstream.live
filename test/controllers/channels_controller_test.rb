@@ -108,6 +108,29 @@ describe ChannelsController do
       end
     end
 
+    describe "#create" do
+      as(:admin, :broadcaster) do
+        it "just redirects to the channel page" do
+          assert_no_changes(-> { Twitch::Channel.count }) do
+            post channel_url
+          end
+
+          assert_redirected_to root_url
+          assert_response :found
+        end
+      end
+
+      as(:moderator, :viewer) do
+        it "is restricted" do
+          assert_no_changes(-> { Twitch::Channel.count }) do
+            post channel_url
+          end
+
+          assert_response :forbidden
+        end
+      end
+    end
+
     describe "#destroy" do
       as(:broadcaster, :admin) do
         it "clears the channel" do

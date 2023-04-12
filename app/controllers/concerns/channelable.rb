@@ -33,6 +33,12 @@ module Channelable
     raise NoChannelError, "Channel not found: `#{target_channel}`"
   end
 
+  def twitch_channel?
+    twitch_channel
+  rescue NoChannelError
+    false
+  end
+
   def subdomain
     Channelable.subdomain(request)
   end
