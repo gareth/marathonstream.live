@@ -8,7 +8,10 @@ class SessionsController < ApplicationController
   end
 
   def new
-    render :new
+    respond_to do |format|
+      format.json { head :not_found }
+      format.html { render :new }
+    end
   end
 
   def create
