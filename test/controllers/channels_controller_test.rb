@@ -36,7 +36,7 @@ describe ChannelsController do
     describe "#create" do
       as(:broadcaster, :admin) do
         it "creates the channel" do
-          assert_changes(-> { Twitch::Channel.count }) do
+          assert_difference(-> { Twitch::Channel.count }) do
             post channel_url
           end
 
@@ -46,7 +46,7 @@ describe ChannelsController do
 
       otherwise do
         it "is restricted" do
-          assert_no_changes(-> { Twitch::Channel.count }) do
+          assert_no_difference(-> { Twitch::Channel.count }) do
             post channel_url
           end
 
@@ -111,7 +111,7 @@ describe ChannelsController do
     describe "#create" do
       as(:admin, :broadcaster) do
         it "just redirects to the channel page" do
-          assert_no_changes(-> { Twitch::Channel.count }) do
+          assert_no_difference(-> { Twitch::Channel.count }) do
             post channel_url
           end
 
@@ -122,7 +122,7 @@ describe ChannelsController do
 
       otherwise do
         it "is restricted" do
-          assert_no_changes(-> { Twitch::Channel.count }) do
+          assert_no_difference(-> { Twitch::Channel.count }) do
             post channel_url
           end
 
@@ -134,7 +134,7 @@ describe ChannelsController do
     describe "#destroy" do
       as(:broadcaster, :admin) do
         it "clears the channel" do
-          assert_changes(-> { Twitch::Channel.count }, -1) do
+          assert_difference(-> { Twitch::Channel.count }, -1) do
             delete channel_url
           end
 
@@ -144,7 +144,7 @@ describe ChannelsController do
 
       otherwise do
         it "is restricted" do
-          assert_no_changes(-> { Twitch::Channel.count }) do
+          assert_no_difference(-> { Twitch::Channel.count }) do
             delete channel_url
           end
 
