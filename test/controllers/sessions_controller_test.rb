@@ -4,8 +4,16 @@ describe SessionsController do
   include AuthenticationTestHelper
 
   describe "when authenticated" do
-    as(:viewer) do
-      describe "#show" do
+    describe "#show" do
+      as(:anonymous) do
+        it "returns profile information as JSON" do
+          get session_url(format: :json)
+
+          assert_response :not_found
+        end
+      end
+
+      otherwise do
         it "returns profile information as JSON" do
           get session_url(format: :json)
 

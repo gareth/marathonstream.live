@@ -14,7 +14,7 @@ describe ChannelsController do
     end
 
     describe "#show" do
-      as(:broadcaster) do
+      as(:admin, :broadcaster) do
         it "offers to create the channel" do
           get channel_url
 
@@ -23,7 +23,7 @@ describe ChannelsController do
         end
       end
 
-      as(:moderator, :viewer) do
+      otherwise do
         it "tells you there's no channel" do
           get channel_url
 
@@ -44,7 +44,7 @@ describe ChannelsController do
         end
       end
 
-      as(:moderator, :viewer) do
+      otherwise do
         it "is restricted" do
           assert_no_changes(-> { Twitch::Channel.count }) do
             post channel_url
@@ -60,7 +60,7 @@ describe ChannelsController do
     use_channel
 
     describe "#show" do
-      as(:broadcaster, :admin) do
+      as(:admin, :broadcaster, :moderator) do
         it "shows broadcaster navigation" do
           get channel_url
 
@@ -68,7 +68,7 @@ describe ChannelsController do
         end
       end
 
-      as(:viewer) do
+      otherwise do
         it "doesn't show broadcaster navigation" do
           get channel_url
 
@@ -77,7 +77,7 @@ describe ChannelsController do
       end
 
       describe "with no active stream" do
-        as(:viewer) do
+        as_anyone do
           it "shows no active stream" do
             get channel_url
 
@@ -91,7 +91,7 @@ describe ChannelsController do
           create(:stream, :active, twitch_channel: channel, title: "Active Stream")
         end
 
-        as(:viewer) do
+        as_anyone do
           it "renders the page" do
             get channel_url
 
@@ -120,7 +120,7 @@ describe ChannelsController do
         end
       end
 
-      as(:moderator, :viewer) do
+      otherwise do
         it "is restricted" do
           assert_no_changes(-> { Twitch::Channel.count }) do
             post channel_url
@@ -142,7 +142,7 @@ describe ChannelsController do
         end
       end
 
-      as(:moderator, :viewer) do
+      otherwise do
         it "is restricted" do
           assert_no_changes(-> { Twitch::Channel.count }) do
             delete channel_url

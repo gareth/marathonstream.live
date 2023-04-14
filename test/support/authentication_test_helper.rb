@@ -25,7 +25,12 @@ module AuthenticationTestHelper
     # 1. Create a `describe` block for each role listed
     # 2. Sign that user in at the beginning of the test
     def as(*roles, &)
+      stack = Minitest::Spec.describe_stack
+      stack.extend MinitestSpecStackPopper unless stack.is_a?(MinitestSpecStackPopper)
+
       roles.each do |role|
+        (@roles_described ||= Set.new) << role
+
         describe "as a #{role}" do
           # Before each test, simulate logging the user in
           before do
@@ -45,6 +50,13 @@ module AuthenticationTestHelper
       as(*Role.values, &)
     end
 
+    # Sets a block to be run for roles that aren't explicitly called via `as`
+    def as_other(&block)
+      @roles_remaining_context = block
+    end
+
+    alias_method :otherwise, :as_other
+
     # In tests relating to a specific channel, we have to make requests to a
     # specific subdomain. To enable requests and URL helpers (for assertions) to
     # work, we can set `default_url_options` on the integration test object
@@ -55,6 +67,43 @@ module AuthenticationTestHelper
       before do
         self.default_url_options = { subdomain: channel }
       end
+    end
+  end
+
+  # Mutates the Minitest::Spec stack with hooks to check which roles have been
+  # specified.
+  #
+  # As you write nested `describe` blocks, Minitest keeps track of the stack of
+  # contexts that you've created.
+  #
+  # As tests run that use authentication, they call the `as` helper, which adds
+  # a list of tested roles to the @roles_described collection for that block.
+  #
+  # When each `describe` block finishes, Minitest "pops" the stack to jump out
+  # to the previous level. This module intercepts that call and uses it to check
+  # which roles were tested. If there are any roles that haven't been tested, we
+  # inject a "fake" failing test. Sneaky!
+  #
+  # All in all, this is some nasty, nasty, overly complicated metaprogramming.
+  module MinitestSpecStackPopper
+    def pop
+      spec = last
+      if spec.instance_variable_defined?("@roles_described")
+        expected_roles = Set.new(Role.values.map(&:to_sym))
+        missing_roles = expected_roles - spec.instance_variable_get("@roles_described")
+
+        if missing_roles.any?
+          if (remaining_context = spec.instance_variable_get("@roles_remaining_context"))
+            last.as(*missing_roles, &remaining_context)
+          else
+            last.it "doesn't test all roles" do
+              flunk format("Forgot to test roles: %s", missing_roles.join(", "))
+            end
+          end
+        end
+      end
+
+      super
     end
   end
 end
