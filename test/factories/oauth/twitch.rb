@@ -3,10 +3,10 @@ FactoryBot.define do
     skip_create
 
     uid { "12345678" }
-    name { "HeliX" }
-    nickname { name.downcase }
+    display_name { "HeliX" }
+    login { display_name.downcase }
 
-    broadcaster_type { "affiliate" }
+    broadcaster_type { "" }
 
     token { "012345678901234567890123456789" }
     refresh_token { "01234567890123456789012345678901234567890123456789" }
@@ -19,13 +19,13 @@ FactoryBot.define do
         "provider" => "twitch",
         "uid" => uid,
         "info" => {
-          "name" => name,
+          "name" => display_name,
           "email" => nil,
-          "nickname" => nickname,
+          "nickname" => login,
           "description" => "",
           "image" => avatar,
           "urls" => {
-            "Twitch" => "http://www.twitch.tv/#{nickname}"
+            "Twitch" => "http://www.twitch.tv/#{login}"
           }
         },
         "credentials" => {
@@ -37,8 +37,8 @@ FactoryBot.define do
         "extra" => {
           "raw_info" => {
             "id" => uid,
-            "login" => nickname,
-            "display_name" => name,
+            "login" => login,
+            "display_name" => display_name,
             "type" => "",
             "broadcaster_type" => broadcaster_type,
             "description" => "",

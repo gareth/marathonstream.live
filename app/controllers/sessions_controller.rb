@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def new
     respond_to do |format|
       format.json { head :not_found }
-      format.html { render :new }
+      format.html { render :new, status: :not_found }
     end
   end
 
@@ -22,6 +22,19 @@ class SessionsController < ApplicationController
 
     case provider
     when "twitch"
+      user = Twitch::User.find_or_initialize_by(uid: user_info["uid"])
+      user.login = user_info.dig("info", "nickname")
+      user.display_name = user_info.dig("info", "name")
+
+      if (scopes = user_info.dig("credentials", "scope"))
+        user.token_scopes = Array(scopes)
+      end
+      user.token = user_info.dig("credentials", "token")
+      user.refresh_token = user_info.dig("credentials", "refresh_token")
+      user.token_expires_at = (Time.at(user_info.dig("credentials", "expires_at")) if user_info.dig("credentials",
+                                                                                                    "expires"))
+      user.save
+
       session["identity.data"] = {
         uid: user_info.fetch("uid"),
         login: user_info.dig("info", "nickname"),

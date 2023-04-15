@@ -28,7 +28,7 @@
                 = surround "(", ")" do
                   = current_user
           - else
-            = link_to "Login", "/session"
+            = button_to "Login (Twitch)", "/auth/twitch", data: { turbo: false }
     - if content_for?(:before_content)
       = yield(:before_content)
     %main
