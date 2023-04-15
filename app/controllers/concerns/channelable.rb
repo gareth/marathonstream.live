@@ -47,12 +47,12 @@ module Channelable
     case session["identity.provider"]
     when "twitch"
       data = session["identity.data"]
+      identity = Twitch::User.find_by(uid: data["uid"])
+
       # TODO: Moderator lookup
-      if subdomain == data["login"]
-        UserSession.new(role: Role.broadcaster)
-      else
-        UserSession.new(role: Role.viewer)
-      end
+      role = subdomain == data["login"] ? Role.broadcaster : Role.viewer
+
+      UserSession.new(role:, identity:)
     else
       super
     end

@@ -13,7 +13,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def current_user; end
+  def current_user
+    current_session.identity
+  end
 
   def current_session
     case session["identity.provider"]
@@ -21,7 +23,8 @@ class ApplicationController < ActionController::Base
       role = session.dig("identity.data", "role").to_sym
       UserSession.new(role:)
     when "twitch"
-      UserSession.new(role: Role.viewer)
+      identity = Twitch::User.find_by(uid: session.dig("identity.data", "uid"))
+      UserSession.new(role: Role.viewer, identity:)
     else
       # TODO: Remove the test hook maybe
       role = session.fetch("test.role", Role.anonymous).to_sym
