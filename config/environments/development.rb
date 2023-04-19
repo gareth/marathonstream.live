@@ -71,4 +71,6 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.middleware.use DevelopmentSubdomain
+
+  config.x.marathon.subdomain_param = DevelopmentSubdomain::SUBDOMAIN_PARAM
 end

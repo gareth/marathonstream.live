@@ -34,5 +34,7 @@ module MarathonStream
     config.generators do |g|
       g.test_framework :minitest, spec: true, fixture: false
     end
+
+    config.x.marathon.subdomain_param = :subdomain
   end
 end

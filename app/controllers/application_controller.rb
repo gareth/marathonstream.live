@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
 
-  helper_method :current_session, :current_user
+  helper_method :current_session, :current_user, :subdomain_param, :subdomain_p
 
   rescue_from(Pundit::NotAuthorizedError) do |e|
     error_klass = e.class.name.demodulize
@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def subdomain_param
+    Rails.application.config.x.marathon.subdomain_param
+  end
+  alias subdomain_p subdomain_param
 
   def current_user
     current_session.identity
