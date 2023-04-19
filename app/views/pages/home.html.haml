@@ -1,1 +1,8 @@
 %h1 Marathon Stream
+
+- if current_user
+  - if @twitch_channel
+    Go to
+  - else
+    Set up
+  = link_to "your channel", root_url(subdomain_p => current_user.login)
