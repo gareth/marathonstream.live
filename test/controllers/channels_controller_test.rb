@@ -131,6 +131,26 @@ describe ChannelsController do
       end
     end
 
+    describe "#update" do
+      as(:broadcaster, :admin) do
+        it "saves channel option settings" do
+          assert_changes(-> { channel.reload.sync_moderators }) do
+            patch channel_url, params: {
+              channel: { sync_moderators: true }
+            }
+          end
+        end
+      end
+
+      otherwise do
+        it "is restricted" do
+          patch channel_url
+
+          assert_response :forbidden
+        end
+      end
+    end
+
     describe "#destroy" do
       as(:broadcaster, :admin) do
         it "clears the channel" do

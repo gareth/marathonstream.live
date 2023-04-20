@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_14_070626) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_20_233741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_14_070626) do
     t.string "display_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "sync_moderators", default: false, null: false
     t.index ["twitch_id"], name: "index_twitch_channels_on_twitch_id", unique: true
     t.index ["username"], name: "index_twitch_channels_on_username", unique: true
   end

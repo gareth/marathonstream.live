@@ -40,9 +40,19 @@ class ChannelsController < ApplicationController
     redirect_to root_url
   end
 
+  def update
+    authorize(twitch_channel).update(channel_params)
+  end
+
   def destroy
     authorize(twitch_channel).destroy
 
     redirect_to root_url
+  end
+
+  private
+
+  def channel_params
+    params.require(:channel).permit(:sync_moderators)
   end
 end
