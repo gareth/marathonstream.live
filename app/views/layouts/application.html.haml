@@ -24,9 +24,6 @@
           - if current_session.authenticated?
             = button_to "/session", method: :delete do
               = "Logout"
-              - if current_user
-                = surround "(", ")" do
-                  = current_user
           - else
             = button_to "Login (Twitch)", "/auth/twitch", data: { turbo: false }
     - if content_for?(:before_content)
