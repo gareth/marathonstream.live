@@ -30,7 +30,9 @@ class ChannelsController < ApplicationController
       redirect_to root_url and return
     end
 
-    channel = Twitch::Channel.new(username: subdomain, display_name: subdomain)
+    user = Twitch::User.find_by(login: subdomain)
+
+    channel = Twitch::Channel.new(username: subdomain, display_name: user&.display_name || subdomain)
 
     authorize(channel)
 
