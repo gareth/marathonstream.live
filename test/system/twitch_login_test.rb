@@ -16,7 +16,7 @@ describe "Twitch OAuth Login", :system do
     it "logs in as the user" do
       login_via_navbar
 
-      assert_content oauth.fetch("info").fetch("nickname")
+      assert_content oauth.fetch("info").fetch("name")
     end
   end
 
@@ -31,7 +31,7 @@ describe "Twitch OAuth Login", :system do
     it "logs in as the user" do
       login_via_navbar
 
-      assert_content oauth.fetch("info").fetch("nickname")
+      assert_content oauth.fetch("info").fetch("name")
     end
   end
 end
