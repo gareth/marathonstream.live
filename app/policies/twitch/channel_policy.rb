@@ -1,15 +1,11 @@
 module Twitch
   class ChannelPolicy < ApplicationPolicy
-    def create?
-      %i[broadcaster admin].include? user.role
-    end
-
-    def destroy?
-      %i[broadcaster admin].include? user.role
-    end
-
     def show?
       true
+    end
+
+    def manage?
+      %i[broadcaster admin].include? user.role
     end
 
     class Scope < Scope
