@@ -43,3 +43,4 @@ MiniTest::Test.include FactoryBot::Syntax::Methods
 ActionDispatch::IntegrationTest.include RoutesTestHelper
 
 Capybara.app_host = "http://marathonstream.localhost"
+Capybara.save_path = "tmp/capybara"
