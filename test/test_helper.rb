@@ -37,10 +37,20 @@ module ActiveSupport
   end
 end
 
+module SubdomainChanger
+  def subdomain!(subdomain)
+    domain = ActionDispatch::Http::URL.extract_domain(integration_session.host, ActionDispatch::Http::URL.tld_length)
+    integration_session.host = URI("//#{subdomain}.#{domain}").host
+  rescue URI::InvalidURIError
+    raise ArgumentError, format("Invalid subdomain %<subdomain>p for domain %<domain>p", subdomain:, domain:)
+  end
+end
+
 # Enable FactoryBot helpers in all tests
 MiniTest::Test.include FactoryBot::Syntax::Methods
 
 ActionDispatch::IntegrationTest.include RoutesTestHelper
+ActionDispatch::IntegrationTest.include SubdomainChanger
 
 Capybara.app_host = "http://marathonstream.localhost"
 Capybara.save_path = "tmp/capybara"
