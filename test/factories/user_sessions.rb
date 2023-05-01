@@ -11,7 +11,11 @@ FactoryBot.define do
     identity { nil }
 
     trait :with_identity do
-      identity { create(:twitch_user) }
+      identity do
+        opts = {}
+        opts[:uid] = twitch_channel&.twitch_id if twitch_channel
+        create(:twitch_user, **opts)
+      end
     end
 
     trait :admin do
