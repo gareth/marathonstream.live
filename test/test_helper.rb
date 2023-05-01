@@ -47,7 +47,7 @@ module SubdomainChanger
 end
 
 # Enable FactoryBot helpers in all tests
-MiniTest::Test.include FactoryBot::Syntax::Methods
+Minitest::Test.include FactoryBot::Syntax::Methods
 
 ActionDispatch::IntegrationTest.include RoutesTestHelper
 ActionDispatch::IntegrationTest.include SubdomainChanger
