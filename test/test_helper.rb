@@ -46,6 +46,11 @@ module SubdomainChanger
   end
 end
 
+# Use `ActiveSupport::TestCase` as a base class for *all* `describe` blocks.
+# Disabled in favour of opting-in to specific test behaviours like `:model` but
+# left in the code as a reminder that test superclass is important.
+# Minitest::Spec.register_spec_type(ActiveSupport::TestCase) { true }
+
 # Enable FactoryBot helpers in all tests
 Minitest::Test.include FactoryBot::Syntax::Methods
 
