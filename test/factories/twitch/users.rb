@@ -1,9 +1,7 @@
 FactoryBot.define do
   factory :twitch_user, class: "Twitch::User" do
-    sequence :uid
-    sequence(:display_name) do |n|
-      "TwitchUser#{n}"
-    end
+    sequence(:uid) { generate(:twitch_id) }
+    display_name { "TwitchUser#{uid}" }
     login { display_name.downcase }
     token_scopes { [] }
     token { "012345678901234567890123456789" }

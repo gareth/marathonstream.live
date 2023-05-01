@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :twitch_channel, class: "Twitch::Channel" do
-    sequence(:twitch_id)
+    twitch_id
     username { display_name.downcase }
     display_name { "HeliX#{twitch_id}" }
   end
