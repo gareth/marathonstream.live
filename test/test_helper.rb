@@ -13,10 +13,10 @@ require "minitest/reporters"
 Dir[Rails.root.join("test", "support", "**", "*.rb")].each { |f| require f }
 
 primary_reporter =
-  if ENV.fetch("TEST_FORMAT", "spec") == "plain"
-    Minitest::Reporters::DefaultReporter
-  else
+  if ENV.fetch("TEST_FORMAT", "spec") == "spec"
     Minitest::Reporters::SpecReporter
+  else
+    Minitest::Reporters::DefaultReporter
   end
 
 Minitest::Reporters.use!(
