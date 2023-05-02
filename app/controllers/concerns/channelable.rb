@@ -36,7 +36,7 @@ module Channelable
   def twitch_channel?
     twitch_channel
   rescue NoChannelError
-    false
+    nil
   end
 
   def subdomain

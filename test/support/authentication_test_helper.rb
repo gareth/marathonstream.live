@@ -15,8 +15,58 @@ class TestSessionsController < TestController
   end
 end
 
+module ChannelSetupHelper
+  extend ActiveSupport::Concern
+
+  class_methods do
+    # In tests relating to a specific channel, we have to make requests to a
+    # specific subdomain. To enable requests and URL helpers (for assertions) to
+    # work, we can set `default_url_options` on the integration test object
+    # itself, and the values will be used throughout the test.
+    def use_channel(**attributes)
+      let(:channel) { create(:twitch_channel, **attributes) }
+
+      before do
+        # TODO: Check the effect of this on integration tests
+        # It might have no effect because app_host is what drives the URL helpers
+        self.default_url_options = { subdomain: channel }
+      end
+    end
+  end
+end
+
+module AuthenticationSystemTestHelper
+  extend ActiveSupport::Concern
+
+  included do
+    include ExhaustiveRoleTestHelper
+  end
+
+  def perform_login
+    visit root_url
+    click_on "Login"
+  end
+end
+
 module AuthenticationTestHelper
   extend ActiveSupport::Concern
+
+  included do
+    include ExhaustiveRoleTestHelper
+  end
+
+  def perform_login
+    draw_test_routes { resource :test_session }
+    post test_session_url(role:)
+  end
+end
+
+module ExhaustiveRoleTestHelper
+  extend ActiveSupport::Concern
+
+  included do
+    include ChannelSetupHelper
+  end
 
   class_methods do
     # Define a block of tests with specific personas in mind.
@@ -32,10 +82,29 @@ module AuthenticationTestHelper
         (@roles_described ||= Set.new) << role
 
         describe "as a #{role}" do
+          let(:role) { role }
+
           # Before each test, simulate logging the user in
+          let(:user_session) do
+            session_attributes = {}
+            session_attributes[:twitch_channel] = channel if defined? channel
+            create(:user_session, role, **session_attributes)
+          end
+
+          let(:oauth) do
+            create(:twitch_oauth, uid: user_session.identity.uid, display_name: user_session.identity.login)
+          end
+
           before do
-            draw_test_routes { resource :test_session }
-            post test_session_url(role:)
+            if user_session.identity
+              Rails.logger.debug format("Detected test user_session %p", user_session)
+              OmniAuth.config.test_mode = true
+              Rails.logger.debug format("Mocking Twitch login with %p", oauth)
+              OmniAuth.config.add_mock(:twitch, oauth)
+
+              Rails.logger.debug "Logging in"
+              perform_login
+            end
           end
 
           # Process the test definitions inside this authenticated block
@@ -56,18 +125,6 @@ module AuthenticationTestHelper
     end
 
     alias_method :otherwise, :as_other
-
-    # In tests relating to a specific channel, we have to make requests to a
-    # specific subdomain. To enable requests and URL helpers (for assertions) to
-    # work, we can set `default_url_options` on the integration test object
-    # itself, and the values will be used throughout the test.
-    def use_channel(**attributes)
-      let(:channel) { create(:twitch_channel, **attributes) }
-
-      before do
-        self.default_url_options = { subdomain: channel }
-      end
-    end
   end
 
   # Mutates the Minitest::Spec stack with hooks to check which roles have been
