@@ -19,7 +19,9 @@ end
 # This module overrides the screenshot filename helper to make it clickable
 module ClickableScreenshotFilenames
   def image_name
-    super.gsub(/\s+/, "_")
+    class_name = self.class.name.underscore
+    screenshot_name = super
+    format("%<class_name>s/%<screenshot_name>s", class_name:, screenshot_name:).gsub(/\s+/, "_")
   end
 end
 
