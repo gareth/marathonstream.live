@@ -1,5 +1,8 @@
 %h1 Channel #{twitch_channel}!
 
+- if policy(twitch_channel).create?
+  = link_to "Edit channel", edit_channel_url
+
 - if policy(twitch_channel).destroy?
   = button_to "Unlink channel", channel_url, method: :delete
 

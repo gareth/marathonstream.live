@@ -44,17 +44,26 @@ module Channelable
   end
 
   def current_session
-    case session["identity.provider"]
-    when "twitch"
-      data = session["identity.data"]
-      identity = Twitch::User.find_by(uid: data["uid"])
+    @current_session ||=
+      case session["identity.provider"]
+      when "twitch"
+        data = session["identity.data"]
+        identity = Twitch::User.find_by(uid: data["uid"])
 
-      # TODO: Moderator lookup
-      role = subdomain == data["login"] ? Role.broadcaster : Role.viewer
+        role =
+          if twitch_channel?&.twitch_id == data["uid"]
+            # If there's a Twitch channel and you're signed in as a user with that channel's ID
+            Role.broadcaster
+          elsif subdomain == data["login"] # rubocop:disable Lint/DuplicateBranch
+            # If you're signed in as a user matching the current subdomain
+            Role.broadcaster
+          else
+            Role.viewer
+          end
 
-      UserSession.new(role:, identity:)
-    else
-      super
-    end
+        UserSession.new(role:, identity:)
+      else
+        super
+      end
   end
 end

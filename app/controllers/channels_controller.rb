@@ -40,8 +40,14 @@ class ChannelsController < ApplicationController
     redirect_to root_url
   end
 
+  def edit
+    authorize(twitch_channel)
+  end
+
   def update
     authorize(twitch_channel).update(channel_params)
+
+    redirect_to channel_url
   end
 
   def destroy

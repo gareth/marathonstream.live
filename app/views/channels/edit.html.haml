@@ -1,0 +1,10 @@
+%h1 Edit channel #{twitch_channel}
+
+= form_for twitch_channel do |f|
+
+  .field
+    %label
+      = f.check_box :sync_moderators
+      Sync moderators
+
+  = f.submit
