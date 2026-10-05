@@ -63,6 +63,8 @@ gem "pundit"
 
 gem "ruby-enum"
 
+gem "json", "< 3.0"
+
 group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
