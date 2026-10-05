@@ -5,6 +5,7 @@ describe "FactoryBot", :model do
   # specific test failures when relevant
   FactoryBot.factories.each do |factory|
     it "has a valid #{factory.name.inspect} factory" do
+      assert true
       conn = ActiveRecord::Base.connection
       conn.transaction do
         FactoryBot.lint([factory], traits: true)
