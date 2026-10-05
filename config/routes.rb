@@ -5,7 +5,7 @@ class ChannelConstraint
   end
 end
 
-class NoChannelConstraint
+class NoChannelConstraint # rubocop:disable Style/OneClassPerFile
   def matches?(request)
     !ChannelConstraint.new.matches?(request)
   end

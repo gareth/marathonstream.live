@@ -3,6 +3,7 @@ require "httparty"
 module Nanoleaf
   class API
     include HTTParty
+
     # debug_output
 
     BASE_PATH = Pathname.new("/api/v1").freeze

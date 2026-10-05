@@ -3,7 +3,8 @@ require "dnssd"
 require_relative "nanoleaf/api"
 
 module Nanoleaf
-  NoUniqueServiceError = Class.new(StandardError)
+  class NoUniqueServiceError < StandardError
+  end
 
   SERVICE_TYPE = "_nanoleafapi._tcp".freeze
   TIMEOUT = 1

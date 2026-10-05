@@ -9,7 +9,8 @@
 # Depends on being included somewhere with a `request` method that returns an
 # ActionDispatch::Request object (with an `#env` method)
 module Channelable
-  NoChannelError = Class.new(StandardError)
+  class NoChannelError < StandardError
+  end
 
   extend ActiveSupport::Concern
 
