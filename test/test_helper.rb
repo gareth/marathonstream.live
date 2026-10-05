@@ -22,8 +22,7 @@ primary_reporter =
 Minitest::Reporters.use!(
   [
     primary_reporter.new,
-    TerminalReporter.new,
-    Nanoleaf::Reporter.new
+    TerminalReporter.new
   ],
   ENV,
   Minitest.backtrace_filter
