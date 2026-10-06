@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_05_181627) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_05_181627) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
 
   create_table "streams", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "twitch_channel_id", null: false
