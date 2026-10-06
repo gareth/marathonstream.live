@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -62,8 +62,6 @@ gem "omniauth-twitch"
 gem "pundit"
 
 gem "ruby-enum"
-
-gem "json", "< 3.0"
 
 group :development, :test do
   gem "pry-byebug"

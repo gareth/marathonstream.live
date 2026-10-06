@@ -105,7 +105,7 @@ GEM
       logger (~> 1.5)
     coderay (1.1.3)
     concurrent-ruby (1.3.8)
-    connection_pool (2.5.5)
+    connection_pool (3.0.2)
     crass (1.0.7)
     cssbundling-rails (1.4.3)
       railties (>= 6.0.0)
@@ -179,7 +179,7 @@ GEM
       activesupport (>= 7.0.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.21.2)
+    json (3.0.2)
     jwt (3.3.0)
       base64
     language_server-protocol (3.17.0.6)
@@ -289,22 +289,23 @@ GEM
     pry-rails (0.3.11)
       pry (>= 0.13.0)
     public_suffix (7.0.5)
-    puma (5.6.9)
+    puma (8.0.2)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
     racc (1.8.1)
-    rack (2.2.24)
-    rack-protection (3.2.0)
+    rack (3.2.7)
+    rack-protection (4.2.1)
       base64 (>= 0.1.0)
-      rack (~> 2.2, >= 2.2.4)
-    rack-session (1.0.2)
-      rack (< 3)
+      logger (>= 1.6.0)
+      rack (>= 3.0.0, < 4)
+    rack-session (2.1.2)
+      base64 (>= 0.1.0)
+      rack (>= 3.0.0)
     rack-test (2.2.0)
       rack (>= 1.3)
-    rackup (1.0.1)
-      rack (< 3)
-      webrick
+    rackup (2.3.1)
+      rack (>= 3)
     rails (8.1.4)
       actioncable (= 8.1.4)
       actionmailbox (= 8.1.4)
@@ -416,7 +417,6 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
-    webrick (1.9.2)
     websocket (1.2.11)
     websocket-driver (0.8.2)
       base64
@@ -445,7 +445,6 @@ DEPENDENCIES
   httparty
   jbuilder
   jsbundling-rails
-  json (< 3.0)
   launchy
   minitest-macos-notification
   minitest-rails (~> 8)
@@ -456,7 +455,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry-byebug
   pry-rails
-  puma (~> 5.0)
+  puma
   pundit
   rails (~> 8.1.0)
   redis (~> 4.0)
