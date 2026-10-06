@@ -1,9 +1,9 @@
 # A Controller concern that identifies the controller as only being available in
-# relatino to a specific Twitch channel. Currently this is implemented by
+# relation to a specific Twitch channel. Currently this is implemented by
 # looking up the Twitch channel based on the subdomain being used to access the
 # site.
 #
-# Additionally we incporporate logic for simulating a subdomain in environments
+# Additionally we incorporate logic for simulating a subdomain in environments
 # where this isn't possible.
 #
 # Depends on being included somewhere with a `request` method that returns an
