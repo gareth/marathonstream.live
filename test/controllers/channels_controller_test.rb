@@ -10,7 +10,7 @@ describe ChannelsController do
     let(:channel) { build(:twitch_channel) }
 
     before do
-      self.default_url_options = { subdomain: channel }
+      self.default_url_options = { channel_name: channel }
     end
 
     describe "#show" do

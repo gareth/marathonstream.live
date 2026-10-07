@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
   layout "channel"
 
   rescue_from Channelable::NoChannelError do |_exception|
-    @channel = Twitch::Channel.new(username: channel_param)
+    @channel = Twitch::Channel.new(username: twitch_channel_param)
 
     if policy(@channel).create?
       render :new, layout: "application"
@@ -30,9 +30,10 @@ class ChannelsController < ApplicationController
       redirect_to root_url and return
     end
 
-    user = Twitch::User.find_by(login: channel_param)
+    user = Twitch::User.find_by(login: twitch_channel_param)
 
-    channel = Twitch::Channel.new(username: channel_param, display_name: user&.display_name || channel_param)
+    channel = Twitch::Channel.new(username: twitch_channel_param,
+                                  display_name: user&.display_name || twitch_channel_param)
 
     authorize(channel)
 

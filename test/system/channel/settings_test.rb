@@ -7,7 +7,7 @@ describe "Channel settings", :system do
 
   as(:broadcaster, :admin, :moderator) do
     it "can update channel settings" do
-      visit edit_channel_url(subdomain: channel)
+      visit edit_channel_url(channel_name: channel)
       check "Sync moderators"
 
       click_on "Update Channel"
@@ -16,7 +16,7 @@ describe "Channel settings", :system do
 
   otherwise do
     it "is restricted" do
-      visit edit_channel_url(subdomain: channel)
+      visit edit_channel_url(channel_name: channel)
       skip "No error page to detect yet"
     end
   end

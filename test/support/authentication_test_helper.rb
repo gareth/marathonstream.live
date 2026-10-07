@@ -29,7 +29,7 @@ module ChannelSetupHelper
       before do
         # TODO: Check the effect of this on integration tests
         # It might have no effect because app_host is what drives the URL helpers
-        self.default_url_options = { subdomain: channel }
+        self.default_url_options = { channel_name: channel }
       end
     end
   end
