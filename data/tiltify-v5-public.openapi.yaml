@@ -9478,53 +9478,37 @@ paths:
         Returns an access and refresh token with a provided client id,
         secret, and grant type. Tokens expire in `7200` seconds.
       operationId: V5ApiWeb.Oauth.Token
-      parameters:
-        - description: Client Id
-          in: query
-          name: client_id
-          required: true
-          schema:
-            type: string
-        - description: Client Secret
-          in: query
-          name: client_secret
-          required: true
-          schema:
-            type: string
-        - description: Grant Type
-          in: query
-          name: grant_type
-          required: true
-          schema:
-            default: client_credentials
-            enum:
-              - client_credentials
-              - authorization_code
-              - refresh_token
-            type: string
-        - description:
-            Authorization Code; `*required` if using `authorization_code`
-            grant type
-          in: query
-          name: code
-          required: false
-          schema:
-            type: string
-        - description: Refresh Token; `*required` if using `refresh_token` grant type
-          in: query
-          name: refresh_token
-          required: false
-          schema:
-            type: string
-        - description: Scope
-          in: query
-          name: scope
-          required: false
-          schema:
-            default: public
-            enum:
-              - public
-            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                grant_type:
+                  type: string
+                  default: client_credentials
+                  enum:
+                    - client_credentials
+                    - authorization_code
+                    - refresh_token
+                code:
+                  type: string
+                refresh_token:
+                  type: string
+                scope:
+                  type: string
+                  default: public
+                  enum:
+                    - public
+              required:
+                - client_id
+                - client_secret
+                - grant_type
       responses:
         "200":
           content:
