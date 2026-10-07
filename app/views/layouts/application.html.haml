@@ -15,9 +15,10 @@
     %header
       %nav.page-header
         .sudo
-          = link_to("Home", root_url(subdomain_p => nil))
-          - Twitch::Channel.find_each do |channel|
-            = link_to(channel, path_root_url(subdomain_p => channel))
+          = link_to("Stream Tickers", root_url(subdomain_p => nil))
+          - if Rails.env.development?
+            - Twitch::Channel.find_each do |channel|
+              = link_to(channel, path_root_url(subdomain_p => channel))
         .title
           = content_for :nav_title
           = current_session
