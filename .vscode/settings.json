@@ -17,7 +17,8 @@
     "data/tiltify-v5-public.openapi.yaml"
   ],
   "cSpell.words": [
-    "Heaaf", // I have no idea why openapi-generator generated an object containing this word
-    "Tiltify"
+    "Heaaf",
+    "Tiltify",
+    "yardoc"
   ],
 }
