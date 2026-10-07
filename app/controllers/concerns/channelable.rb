@@ -24,10 +24,14 @@ module Channelable
     helper_method :twitch_channel
   end
 
-  def twitch_channel
-    return unless subdomain.present?
+  def twitch_channel_param
+    params[:channel_name] || subdomain
+  end
 
-    target_channel = subdomain
+  def twitch_channel
+    return unless twitch_channel_param.present?
+
+    target_channel = twitch_channel_param
 
     Twitch::Channel.find_by!(username: target_channel)
   rescue ActiveRecord::RecordNotFound
@@ -55,7 +59,7 @@ module Channelable
           if twitch_channel?&.twitch_id == data["uid"]
             # If there's a Twitch channel and you're signed in as a user with that channel's ID
             Role.broadcaster
-          elsif subdomain == data["login"] # rubocop:disable Lint/DuplicateBranch
+          elsif twitch_channel_param == data["login"] # rubocop:disable Lint/DuplicateBranch
             # If you're signed in as a user matching the current subdomain
             Role.broadcaster
           else
@@ -66,5 +70,9 @@ module Channelable
       else
         super
       end
+  end
+
+  def default_url_options
+    super.merge(channel_name: twitch_channel_param).compact
   end
 end

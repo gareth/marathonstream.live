@@ -12,15 +12,19 @@ class NoChannelConstraint # rubocop:disable Style/OneClassPerFile
 end
 
 Rails.application.routes.draw do
-  match "/auth/:provider/callback", to: "sessions#create", via: %i[get post]
-  resource :session
-
-  constraints(ChannelConstraint.new) do
-    root to: "channels#show", as: :channel_root
+  channel_routes = lambda do
+    get "/", to: "channels#show"
 
     resource :channel
     resources :streams
   end
+
+  match "/auth/:provider/callback", to: "sessions#create", via: %i[get post]
+  resource :session
+
+  scope("/~:channel_name", &channel_routes)
+
+  constraints(ChannelConstraint.new, &channel_routes)
 
   constraints(NoChannelConstraint.new) do
     root to: "pages#home"
