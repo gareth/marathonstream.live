@@ -88,4 +88,6 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.action_dispatch.tld_length = 2
+
+  config.x.marathon.subdomain_param = :channel_name
 end
