@@ -11,11 +11,17 @@ module Integrations
     def initialize(client_id, client_secret)
       @client_id = client_id
       @client_secret = client_secret
+    end
 
+    def app_client
       oauth = ::Twitch::OAuth.new(client_id: @client_id, client_secret: @client_secret)
       token = oauth.create(grant_type: "client_credentials")
 
-      @_client = ::Twitch::Client.new(client_id: @client_id, access_token: token.access_token)
+      ::Twitch::Client.new(client_id: @client_id, access_token: token.access_token)
+    end
+
+    def user_client(twitch_user)
+      ::Twitch::Client.new(client_id: @client_id, access_token: twitch_user.token)
     end
   end
 end
