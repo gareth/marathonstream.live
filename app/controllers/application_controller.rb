@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
       role = session.dig("identity.data", "role").to_sym
       UserSession.new(role:)
     when "twitch"
-      identity = Twitch::User.find_by(uid: session.dig("identity.data", "uid"))
+      identity = TwitchUser.find_by(uid: session.dig("identity.data", "uid"))
       UserSession.new(role: Role.viewer, identity:)
     else
       # TODO: Remove the test hook maybe

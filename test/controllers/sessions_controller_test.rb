@@ -37,7 +37,7 @@ describe SessionsController do
         let(:oauth) { create(:twitch_oauth, display_name: "TriCeraTops", uid: 424_242) }
 
         it "creates a user" do
-          assert_difference(-> { Twitch::User.count }) do
+          assert_difference(-> { TwitchUser.count }) do
             login_via_twitch_oauth
           end
         end
@@ -45,7 +45,7 @@ describe SessionsController do
         it "sets the user's details" do
           login_via_twitch_oauth
 
-          user = Twitch::User.find_by(uid: 424_242)
+          user = TwitchUser.find_by(uid: 424_242)
           assert_equal "triceratops", user.login
           assert_equal "TriCeraTops", user.display_name
           assert_equal oauth["credentials"]["token"], user.token
@@ -58,7 +58,7 @@ describe SessionsController do
         let(:oauth) { create(:twitch_oauth, uid: user.uid, display_name: "NewUsername") }
 
         it "doesn't create a user" do
-          assert_no_difference(-> { Twitch::User.count }) do
+          assert_no_difference(-> { TwitchUser.count }) do
             login_via_twitch_oauth
           end
         end

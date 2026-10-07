@@ -15,7 +15,7 @@ describe "FactoryBot", :model do
   end
 
   describe "UserSession factory" do
-    it "creates an associated Twitch::User when necessary" do
+    it "creates an associated TwitchUser when necessary" do
       assert create(:user_session, :admin).identity,        "Expected identity created with admin session"
       assert create(:user_session, :broadcaster).identity,  "Expected identity created with broadcaster session"
       assert create(:user_session, :moderator).identity,    "Expected identity created with moderator session"
@@ -25,7 +25,7 @@ describe "FactoryBot", :model do
       refute create(:user_session, :viewer).identity,       "Expected no identity created with viewer session"
     end
 
-    it "creates a related Twitch::Channel when necessary" do
+    it "creates a related TwitchChannel when necessary" do
       assert create(:user_session, :broadcaster),
              "Expected a channel to be created with broadcaster session"
 

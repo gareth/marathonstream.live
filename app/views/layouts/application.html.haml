@@ -17,7 +17,7 @@
         .sudo
           = link_to("Stream Tickers", root_url(subdomain_p => nil))
           - if Rails.env.development?
-            - Twitch::Channel.find_each do |channel|
+            - TwitchChannel.find_each do |channel|
               = link_to(channel, path_root_url(subdomain_p => channel))
         .title
           = content_for :nav_title

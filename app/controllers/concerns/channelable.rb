@@ -33,7 +33,7 @@ module Channelable
 
     target_channel = twitch_channel_param
 
-    Twitch::Channel.find_by!(username: target_channel)
+    TwitchChannel.find_by!(username: target_channel)
   rescue ActiveRecord::RecordNotFound
     raise NoChannelError, "Channel not found: `#{target_channel}`"
   end
@@ -53,7 +53,7 @@ module Channelable
       case session["identity.provider"]
       when "twitch"
         data = session["identity.data"]
-        identity = Twitch::User.find_by(uid: data["uid"])
+        identity = TwitchUser.find_by(uid: data["uid"])
 
         role =
           if twitch_channel?&.twitch_id == data["uid"]

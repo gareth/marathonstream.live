@@ -23,7 +23,7 @@ module MarathonStream
         super.tap do |params|
           target_scopes = Set.new
 
-          if (user = ::Twitch::User.find_by(uid: session.dig("identity.data", "uid")))
+          if (user = ::TwitchUser.find_by(uid: session.dig("identity.data", "uid")))
             target_scopes += user.token_scopes
           end
 

@@ -15,7 +15,7 @@ describe Channelable, :integration do
       resources :regular_items
     end
 
-    # We make three `Twitch::Channel`s to ensure that the controller isn't just
+    # We make three `TwitchChannel`s to ensure that the controller isn't just
     # picking the first/last
     create(:twitch_channel)
     @target_channel = create(:twitch_channel)

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :twitch_user, class: "Twitch::User" do
+  factory :twitch_user, class: "TwitchUser" do
     sequence(:uid) { generate(:twitch_id) }
     display_name { "TwitchUser#{uid}" }
     login { display_name.downcase }

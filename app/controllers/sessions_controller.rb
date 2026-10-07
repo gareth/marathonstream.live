@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
     case provider
     when "twitch"
-      user = Twitch::User.find_or_initialize_by(uid: user_info["uid"])
+      user = TwitchUser.find_or_initialize_by(uid: user_info["uid"])
       user.login = user_info.dig("info", "nickname")
       user.display_name = user_info.dig("info", "name")
 

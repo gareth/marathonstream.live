@@ -1,6 +1,6 @@
 require "test_helper"
 
-describe Twitch::Channel do
+describe TwitchChannel do
   describe "#to_s" do
     it "displays as the display name" do
       assert_equal "FooBaR", build(:twitch_channel, display_name: "FooBaR").to_s
