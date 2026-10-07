@@ -42,7 +42,7 @@ module MarathonStream
       g.test_framework :minitest, spec: true, fixture: false
     end
 
-    config.x.marathon.subdomain_param = :subdomain
+    config.x.marathon.subdomain_param = :channel_name
 
     config.active_support.cache_format_version = 7.1
   end

@@ -40,7 +40,7 @@ describe ChannelsController do
             post channel_url
           end
 
-          assert_redirected_to root_url
+          assert_redirected_to path_root_url(Rails.application.config.x.marathon.subdomain_param => channel)
         end
       end
 
@@ -115,7 +115,7 @@ describe ChannelsController do
             post channel_url
           end
 
-          assert_redirected_to root_url
+          assert_redirected_to path_root_url(Rails.application.config.x.marathon.subdomain_param => channel)
           assert_response :found
         end
       end

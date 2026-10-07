@@ -27,7 +27,7 @@ class ChannelsController < ApplicationController
   def create
     if twitch_channel?
       authorize(twitch_channel)
-      redirect_to root_url and return
+      redirect_to path_root_url and return
     end
 
     user = Twitch::User.find_by(login: twitch_channel_param)
@@ -38,7 +38,7 @@ class ChannelsController < ApplicationController
     authorize(channel)
 
     channel.save
-    redirect_to root_url
+    redirect_to path_root_url
   end
 
   def edit
