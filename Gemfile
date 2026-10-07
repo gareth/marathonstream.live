@@ -63,6 +63,8 @@ gem "pundit"
 
 gem "ruby-enum"
 
+gem "tiltify_v5_public", path: "vendor/tiltify_v5_public"
+
 group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"

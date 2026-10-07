@@ -1,5 +1,6 @@
 {
   "cSpell.ignorePaths": [
+    // // Common files to ignore
     // "package-lock.json",
     // "node_modules",
     // "vscode-extension",
@@ -7,7 +8,16 @@
     // ".git/{index,*refs,*HEAD}",
     // ".vscode",
     // ".vscode-insiders",
+
+    // Package manager files
     "Gemfile",
-    "Gemfile.lock"
+    "Gemfile.lock",
+
+    // OpenAPI specification files containing arbitrary strings
+    "data/tiltify-v5-public.openapi.yaml"
+  ],
+  "cSpell.words": [
+    "Heaaf", // I have no idea why openapi-generator generated an object containing this word
+    "Tiltify"
   ],
 }

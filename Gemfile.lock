@@ -1,3 +1,11 @@
+PATH
+  remote: vendor/tiltify_v5_public
+  specs:
+    tiltify_v5_public (1.0.0)
+      faraday
+      faraday-multipart
+      zeitwerk
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -128,6 +136,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
+    faraday-multipart (1.2.0)
+      multipart-post (~> 2.0)
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
     ffi (1.17.4-arm64-darwin)
@@ -224,6 +234,7 @@ GEM
     msgpack (1.8.5)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
+    multipart-post (2.4.1)
     nenv (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
@@ -464,6 +475,7 @@ DEPENDENCIES
   selenium-webdriver
   sprockets-rails
   stimulus-rails
+  tiltify_v5_public!
   turbo-rails
   tzinfo-data
   web-console
