@@ -38,3 +38,7 @@
 /.env
 /.env.local
 /.env.*.local
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
