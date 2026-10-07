@@ -111,6 +111,8 @@ GEM
     cgi (0.5.2)
     childprocess (5.1.0)
       logger (~> 1.5)
+    chrome_devtools_rails (0.2.0)
+      rails (~> 8.0, >= 8.0.2)
     coderay (1.1.3)
     concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
@@ -453,6 +455,7 @@ DEPENDENCIES
   bootsnap
   capybara
   cgi
+  chrome_devtools_rails (~> 0.2.0)
   cssbundling-rails
   dnssd
   dotenv-rails

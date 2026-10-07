@@ -117,3 +117,5 @@ group :test do
 
   gem "minitest-rails", "~> 8"
 end
+
+gem "chrome_devtools_rails", "~> 0.2.0"
