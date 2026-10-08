@@ -1,3 +1,5 @@
 web: unset PORT && bin/rails server
 js: yarn build --watch
 css: yarn build:css --watch
+guard: VIA_FOREMAN=1 bundle exec guard
+ngrok: ngrok start stream-tickers
