@@ -24,8 +24,9 @@ Rails.application.routes.draw do
   match "/auth/:provider/callback", to: "sessions#create", via: %i[get post]
   resource :session
 
-  scope("/~:channel_name", &channel_routes(:path))
+  post "/.webhooks/tiltify", to: "tiltify_webhooks#create", as: :tiltify_webhook
 
+  scope("/~:channel_name", &channel_routes(:path))
   constraints(ChannelConstraint.new, &channel_routes(:subdomain))
 
   constraints(NoChannelConstraint.new) do

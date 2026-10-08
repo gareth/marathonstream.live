@@ -1,0 +1,14 @@
+Host: sequentially-superloyal-rolande.ngrok-free.dev
+User-Agent: Tiltify Outgoing Webhook
+Content-Length: 1150
+Content-Type: application/json
+X-Forwarded-For: 20.150.194.47
+X-Forwarded-Host: sequentially-superloyal-rolande.ngrok-free.dev
+X-Forwarded-Proto: https
+X-Tiltify-Endpoint: c9d342ff-287a-425a-b376-598575126acd
+X-Tiltify-Signature: SLrSIhld/+1lm8iKBUVUeFNpvndJOSN9m4EQwVOJ/TU=
+X-Tiltify-Timestamp: 2026-10-07T22:22:59.398555Z
+X-Tiltify-Version: v5
+Accept-Encoding: gzip
+
+{"data":{"amount":{"currency":"USD","value":"95.62"},"campaign_id":"f2ec185a-9af5-44df-8ea1-6a8845089428","cause_id":"bb6bf634-039c-4cf0-b510-26e30647ac31","completed_at":"2026-10-07T21:20:18.148299Z","created_at":"2026-10-07T11:33:37.148352Z","donation_matches":[],"donor_comment":"Voluptatem nulla velit et voluptatum asperiores iusto ut quo.","donor_name":"Anonymous","facts":[{"id":"ca59fd33-d1de-49bd-8004-ddfc2acb3ad3","name":"Charity Name","usage_type":"cause"}],"fundraising_event_id":null,"id":"8eaeca48-564d-4012-851c-6fdd7f80e5b5","legacy_id":0,"poll_id":null,"poll_option_id":null,"reward_claims":[{"id":"8b438577-20ce-4cde-89d3-a420f4b5616c","quantity":1,"reward_id":"b2b84db7-7fae-47f9-844b-0e24a3429d4a"}],"reward_id":"b2b84db7-7fae-47f9-844b-0e24a3429d4a","sustained":false,"target_id":null,"team_event_id":"87ef2572-48d7-44f5-9b94-6b7b54cb598e"},"meta":{"id":"400b3890-53d6-4d7f-9b9c-e5eaf5fa5da5","attempted_at":"2026-10-07T22:22:59.398555Z","event_type":"public:direct:donation_updated","generated_at":"2026-10-07T21:20:43.148415Z","subscription_source_id":"00000000-0000-0000-0000-000000000000","subscription_source_type":"test"}}
