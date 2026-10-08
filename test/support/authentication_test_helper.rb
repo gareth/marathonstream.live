@@ -81,7 +81,9 @@ module ExhaustiveRoleTestHelper
       roles.each do |role|
         (@roles_described ||= Set.new) << role
 
-        describe "as a #{role}" do
+        article = role.to_s.start_with?("a", "e", "i", "o", "u") ? "an" : "a"
+
+        describe "as #{article} #{role}" do
           let(:role) { role }
 
           # Before each test, simulate logging the user in
