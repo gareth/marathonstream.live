@@ -158,7 +158,7 @@ describe ChannelsController do
             delete channel_url
           end
 
-          assert_redirected_to root_url
+          assert_redirected_to path_root_url
         end
       end
 

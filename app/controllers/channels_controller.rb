@@ -12,6 +12,10 @@ class ChannelsController < ApplicationController
     if policy(@channel).create?
       render :new, layout: "application"
     else
+      cli = Integrations::Twitch.client.app_client
+
+      @user = cli.users.retrieve(username: twitch_channel_param)
+
       render :missing, status: 404, layout: "application"
     end
   end
@@ -54,7 +58,7 @@ class ChannelsController < ApplicationController
   def destroy
     authorize(twitch_channel).destroy
 
-    redirect_to root_url
+    redirect_to path_root_url
   end
 
   private

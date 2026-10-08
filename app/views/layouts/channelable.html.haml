@@ -1,6 +1,9 @@
 - content_for :nav_title do
   = twitch_channel.display_name
 
+- content_for :page_title do
+  = twitch_channel.display_name
+
 - content_for :content do
   = yield
 

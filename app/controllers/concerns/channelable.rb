@@ -29,6 +29,8 @@ module Channelable
   end
 
   def twitch_channel
+    return @channel if @channel
+
     return unless twitch_channel_param.present?
 
     target_channel = twitch_channel_param
