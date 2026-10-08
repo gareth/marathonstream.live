@@ -1,7 +1,7 @@
 require "test_helper"
 require "capybara/minitest"
 
-describe ChannelsController do
+describe TwitchChannelsController do
   include AuthenticationTestHelper
 
   include Capybara::Minitest::Assertions
@@ -16,7 +16,7 @@ describe ChannelsController do
     describe "#show" do
       as(:admin, :broadcaster) do
         it "offers to create the channel" do
-          get channel_url
+          get twitch_channel_url
 
           assert_content "Create"
           assert_response :success
@@ -25,7 +25,7 @@ describe ChannelsController do
 
       otherwise do
         it "tells you there's no channel" do
-          get channel_url
+          get twitch_channel_url
 
           refute_content "Create"
           assert_response :not_found
@@ -37,7 +37,7 @@ describe ChannelsController do
       as(:broadcaster, :admin) do
         it "creates the channel" do
           assert_difference(-> { TwitchChannel.count }) do
-            post channel_url
+            post twitch_channel_url
           end
 
           assert_redirected_to path_root_url(Rails.application.config.x.marathon.subdomain_param => channel)
@@ -47,7 +47,7 @@ describe ChannelsController do
       otherwise do
         it "is restricted" do
           assert_no_difference(-> { TwitchChannel.count }) do
-            post channel_url
+            post twitch_channel_url
           end
 
           assert_response :forbidden
@@ -62,7 +62,7 @@ describe ChannelsController do
     describe "#show" do
       as(:admin, :broadcaster, :moderator) do
         it "shows broadcaster navigation" do
-          get channel_url
+          get twitch_channel_url
 
           assert_selector "nav.broadcaster-admin"
         end
@@ -70,7 +70,7 @@ describe ChannelsController do
 
       otherwise do
         it "doesn't show broadcaster navigation" do
-          get channel_url
+          get twitch_channel_url
 
           refute_selector "nav.broadcaster-admin"
         end
@@ -79,7 +79,7 @@ describe ChannelsController do
       describe "with no active stream" do
         as_anyone do
           it "shows no active stream" do
-            get channel_url
+            get twitch_channel_url
 
             assert_content "no active stream"
           end
@@ -93,13 +93,13 @@ describe ChannelsController do
 
         as_anyone do
           it "renders the page" do
-            get channel_url
+            get twitch_channel_url
 
             assert_response :success
           end
 
           it "displays the active stream" do
-            get channel_url
+            get twitch_channel_url
 
             assert_no_content "no active stream"
             assert_content "Active Stream"
@@ -112,7 +112,7 @@ describe ChannelsController do
       as(:admin, :broadcaster) do
         it "just redirects to the channel page" do
           assert_no_difference(-> { TwitchChannel.count }) do
-            post channel_url
+            post twitch_channel_url
           end
 
           assert_redirected_to path_root_url(Rails.application.config.x.marathon.subdomain_param => channel)
@@ -123,7 +123,7 @@ describe ChannelsController do
       otherwise do
         it "is restricted" do
           assert_no_difference(-> { TwitchChannel.count }) do
-            post channel_url
+            post twitch_channel_url
           end
 
           assert_response :forbidden
@@ -135,7 +135,7 @@ describe ChannelsController do
       as(:broadcaster, :admin) do
         it "saves channel option settings" do
           assert_changes(-> { channel.reload.sync_moderators }) do
-            patch channel_url, params: {
+            patch twitch_channel_url, params: {
               channel: { sync_moderators: true }
             }
           end
@@ -144,7 +144,7 @@ describe ChannelsController do
 
       otherwise do
         it "is restricted" do
-          patch channel_url
+          patch twitch_channel_url
 
           assert_response :forbidden
         end
@@ -155,7 +155,7 @@ describe ChannelsController do
       as(:broadcaster, :admin) do
         it "clears the channel" do
           assert_difference(-> { TwitchChannel.count }, -1) do
-            delete channel_url
+            delete twitch_channel_url
           end
 
           assert_redirected_to path_root_url
@@ -165,7 +165,7 @@ describe ChannelsController do
       otherwise do
         it "is restricted" do
           assert_no_difference(-> { TwitchChannel.count }) do
-            delete channel_url
+            delete twitch_channel_url
           end
 
           assert_response :forbidden

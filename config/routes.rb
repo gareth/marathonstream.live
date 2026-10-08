@@ -13,9 +13,9 @@ end
 
 def channel_routes(prefix)
   lambda do
-    get "/", to: "channels#show", as: :"#{prefix}_root"
+    get "/", to: "twitch_channels#show", as: :"#{prefix}_root"
 
-    resource :channel
+    resource :twitch_channel, path: "channel"
     resources :streams
   end
 end

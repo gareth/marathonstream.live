@@ -1,4 +1,4 @@
-class ChannelsController < ApplicationController
+class TwitchChannelsController < ApplicationController
   after_action :verify_authorized
   # after_action :verify_policy_scoped, only: :index
 
@@ -52,7 +52,7 @@ class ChannelsController < ApplicationController
   def update
     authorize(twitch_channel).update(channel_params)
 
-    redirect_to channel_url
+    redirect_to twitch_channel_url
   end
 
   def destroy
