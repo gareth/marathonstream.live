@@ -5,7 +5,7 @@ describe "Channel settings", :system do
 
   use_channel
 
-  as(:broadcaster, :admin, :moderator) do
+  as(:broadcaster, :admin) do
     it "can update channel settings" do
       visit edit_twitch_channel_url(channel_name: channel)
       check "Sync moderators"

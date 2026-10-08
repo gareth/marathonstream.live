@@ -140,6 +140,15 @@ describe TwitchChannelsController do
             }
           end
         end
+
+        it "redirects to the channel page after update" do
+          patch twitch_channel_url, params: {
+            channel: { sync_moderators: true }
+          }
+
+          assert_redirected_to path_root_url
+          assert_response :found
+        end
       end
 
       otherwise do

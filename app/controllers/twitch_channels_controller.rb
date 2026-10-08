@@ -52,7 +52,7 @@ class TwitchChannelsController < ApplicationController
   def update
     authorize(twitch_channel).update(channel_params)
 
-    redirect_to twitch_channel_url
+    redirect_to path_root_url
   end
 
   def destroy
