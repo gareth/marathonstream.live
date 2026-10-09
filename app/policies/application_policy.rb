@@ -9,11 +9,11 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    user.role == :admin
   end
 
   def show?
-    false
+    user.role == :admin
   end
 
   def create?
@@ -37,7 +37,7 @@ class ApplicationPolicy
   end
 
   def manage?
-    false
+    user.role == :admin
   end
 
   class Scope

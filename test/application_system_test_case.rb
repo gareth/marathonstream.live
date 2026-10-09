@@ -6,8 +6,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :headless_chrome, screen_size: [1200, 900]
 
   # Use this class for tests `describe`d with :system
-  register_spec_type(self) do |_desc, *addl|
-    addl.include? :system
+  register_spec_type(self) do |_desc, *desc_args|
+    desc_args.include? :system
   end
 end
 

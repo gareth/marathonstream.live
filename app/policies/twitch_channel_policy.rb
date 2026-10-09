@@ -4,7 +4,7 @@ class TwitchChannelPolicy < ApplicationPolicy
   end
 
   def manage?
-    %i[broadcaster admin].include? user.role
+    super || user.role == :broadcaster
   end
 
   class Scope < Scope
