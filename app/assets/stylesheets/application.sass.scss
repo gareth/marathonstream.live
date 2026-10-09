@@ -1,7 +1,9 @@
 // Entry point for your Sass build
 
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Manrope:wght@200..800&display=swap');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Figtree', sans-serif;
 
   display: flex;
   flex-flow: column nowrap;
@@ -9,15 +11,23 @@ body {
   align-items: center;
 
   margin: 0; padding: 0;
+
+  background-color: #eae9e9;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
 }
 
 main, nav {
   width: 60em;
   max-width: 100%;
+  padding: 1em;
 }
 
 header {
-  background-color: #bbb;
+  background-color: white;
+  border-bottom: 1px solid #bbb;
   align-self: stretch;
 
   display: flex;

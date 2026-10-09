@@ -21,7 +21,6 @@
               = link_to(channel, path_root_url(subdomain_p => channel))
         .title
           = content_for :nav_title
-          = current_session
         .login
           - if current_session.authenticated?
             = button_to "/session", method: :delete do
