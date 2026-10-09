@@ -136,14 +136,14 @@ describe TwitchChannelsController do
         it "saves channel option settings" do
           assert_changes(-> { channel.reload.sync_moderators }) do
             patch twitch_channel_url, params: {
-              channel: { sync_moderators: true }
+              twitch_channel: { sync_moderators: true }
             }
           end
         end
 
         it "redirects to the channel page after update" do
           patch twitch_channel_url, params: {
-            channel: { sync_moderators: true }
+            twitch_channel: { sync_moderators: true }
           }
 
           assert_redirected_to path_root_url

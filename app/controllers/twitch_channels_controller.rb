@@ -64,6 +64,6 @@ class TwitchChannelsController < ApplicationController
   private
 
   def channel_params
-    params.require(:channel).permit(:sync_moderators)
+    params.require(:twitch_channel).permit(:sync_moderators)
   end
 end
